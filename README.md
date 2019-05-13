@@ -5,5 +5,4 @@
 
 1. WAS : Apache Tomcat 8.5.31
 2. DataBase : MySQL 5.7.22
-3. eclipse -> Dynamic Web Project -> Spring 설정파일 구성
-. ServletContext, DispatcherServlet
+3. eclipse -> Dynamic Web Project -> Spring 설정파일 구성( ServletContext, DispatcherServlet )
