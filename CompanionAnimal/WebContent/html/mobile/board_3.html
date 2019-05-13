@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../views/resources/css/mobile/commonM.css" >
+	<link rel="stylesheet" type="text/css" href="../../views/resources/css/mobile/board_3.css" >
+
+</head>
+
+<body>
+    <div id="wrap">
+		<!--popUp 영역-->
+		<div id="mask"></div>
+		<div id="popUpContainer"></div>
+		
+		<!-- header 영역-->
+        <div id="hdContainer">
+			<div class="header">
+				<div class="back_btn">
+					<img src="./img/btn_back.png">
+				</div>
+				<p class="headerText">게시판</p>
+			</div>
+		</div>
+		
+        <div id="frameContainer">
+			
+            <div id="contents">
+				<div class="innerBox">
+					<div class="showArea">
+					
+						<!-- btnWrap 영역-->
+						<div class="boardTitleWrap">
+							<div class="boardTitle">
+								<p class="TitleText">제목</p>
+							</div>							
+							<div class="boardInfo">
+								<p class="categoryText">카테고리</p>
+								<div class="borderBar"></div>
+								<p class="dateText">날짜</p>
+							</div>							
+							
+						</div>
+						
+						<!-- infoWrap -->
+						<div class="infoWrap"></div>
+						<div class="gap"></div>
+						
+						<!-- commentWrap -->
+						<div class="commentWrap">
+							<div class="commentCntWrap">
+								<p class="commentText">댓글<span class="commentCnt">00</span>개</p>
+							</div>
+						</div>
+						
+						<!-- userInfo -->
+						<div class="userInfo">
+							<div class="userInfoArea">
+								<img class="iconUser" src="./img/icon_User.png">
+								<div class="infoText">
+									<p class="userName">닉네임</p>
+									<p class="date">날짜</p>
+									<p class="comment">text</p>					
+								</div>						
+							</div>
+						</div>
+						
+						<!-- commentRegister -->
+						<div class="commentRegister">
+							<div class="commentArea">
+								<!-- script 작접시 수정-->
+								<div class="commentInput">
+									<input type="text" class="commentInputText" placeholder="댓글을 입력해주세요">
+								</div>
+								
+								<button class="registerBtn">등록</button>
+							</div>
+						</div>
+							
+							
+					<!-- showArea end-->
+					</div>
+				<!-- innerBox end-->
+				</div>	
+			<!--contents end -->
+            </div>		
+		<!--frameContainer end -->
+        </div>
+		
+		<!-- 네비게이션 -->
+		<div id="nvContainer">
+			<div class="box_nav">
+				<a href="./main.html"><img src="../../views/resources/img/nav/nav_01_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./favorite_1.html"><img src="../../views/resources/img/nav/nav_02_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./myPage_1.html"><img src="../../views/resources/img/nav/nav_03_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./board_1.html"><img src="../../views/resources/img/nav/nav_04_checked.png"></a>
+			</div>
+		</div>
+		
+	<!--wrap end -->
+	
+    </div>
+	
+	<!-- script -->
+    <script src="./js/common/base.js"></script>
+    <script src="./js/common/common.js"></script>
+	<script src="./js/common/responsive.js"></script>
+
+</body>
+
+</html>

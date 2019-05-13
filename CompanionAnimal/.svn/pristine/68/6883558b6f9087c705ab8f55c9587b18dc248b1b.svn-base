@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review">
+	
+	<!-- 리뷰 등록 -->
+	<insert id="reviewInsert" parameterType="reviewVO">
+		INSERT INTO
+			ingredientRST(
+				reviewTitle,
+				reviewGrade,
+				reviewContent,
+				writer,
+				writeDate,
+				modifier,
+				modifyDate,
+				useYN
+			) VALUES (
+				#{reviewTitle},
+				#{reviewGrade},
+				#{reviewContent},
+				#{writer},
+				now(),
+				#{modifier},
+				#{modifyDate},
+				'Y'
+			)					
+	</insert>
+	
+	<!-- 리뷰 조회 -->
+	<select id="getReviewList" parameterType="reviewVO" resultType="reviewVO">
+		SELECT
+			R.*, count(C.reviewCode)
+		AS
+			commentCnt
+		FROM
+			review R left join comment C
+		ON
+			R.reviewIDX = C.reviewIDX		
+		ORDER BY
+			reviewIDX DESC 
+		
+	</select>	
+	
+	<!-- 리뷰 검색 -->
+	<select id="getReviewSearchList" parameterType="reviewVO" resultType="reviewVO">
+		SELECT
+			reviewIDX,
+			reviewTitle,
+			reviewGrade,
+			reviewContent,
+			writer,
+			writeDate,
+			modifier,
+			modifyDate,
+			useYN
+		FROM
+			review
+		WHERE
+			reviewIDX	
+	
+		<choose>
+			<!-- 검색어만 검색 -->	
+			<when test="word != '' ">
+				AND reviewTitle LIKE '${word}'
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>			
+		AND 
+			useYN = 'Y' 
+		ORDER BY 
+			reviewIDX DESC 
+		
+	</select>
+	
+</mapper>

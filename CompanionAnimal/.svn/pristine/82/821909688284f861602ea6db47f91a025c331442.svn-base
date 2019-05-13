@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ingredientRST">
+	
+	<!-- 성분 등록 -->
+	<insert id="ingredientInsert" parameterType="ingredientRSTVO">
+		INSERT INTO
+			ingredientRST(
+				ingredientNameKo,
+				ingredientNameEn,
+				ingredientUse,
+				ingredientDanger,
+				ingredientCarcinogenYN,
+				ingredientCarcinogenText,
+				ingredientCareYN,
+				ingredientCareText,
+				ingredientPurpose,
+				ingredientFunction,
+				writer,
+				writeDate,
+				modifier,
+				modifyDate,
+				useYN
+			) VALUES (
+				#{ingredientNameKo},
+				#{ingredientNameEn},
+				#{ingredientUse},
+				#{ingredientDanger},
+				#{ingredientCarcinogenYN},
+				#{ingredientCarcinogenText},
+				#{ingredientCareYN},
+				#{ingredientCareText},
+				#{ingredientPurpose},
+				#{ingredientFunction},
+				#{writer},
+				now(),
+				#{modifier},
+				#{modifyDate},
+				'Y'
+			)					
+	</insert>
+	
+	<!-- 성분을 조회 -->
+	<select id="getIngredientList" parameterType="ingredientRSTVO" resultType="ingredientRSTVO">
+		SELECT
+			ingredientIDX,
+			ingredientNameKo,
+			ingredientNameEn,
+			ingredientUse,
+			ingredientDanger,
+			ingredientCarcinogenYN,
+			ingredientCarcinogenText,
+			ingredientCareYN,
+			ingredientCareText,
+			ingredientPurpose,
+			ingredientFunction,
+			writer,
+			writeDate,
+			modifier,
+			modifyDate,
+			useYN
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			ingredientIDX DESC 
+		
+	</select>	
+	
+	<!-- 성분을 검색 -->
+	<select id="getIngredientSearchList" parameterType="ingredientRSTVO" resultType="ingredientRSTVO">
+		SELECT
+			ingredientIDX,
+			ingredientNameKo,
+			ingredientNameEn,
+			ingredientUse,
+			ingredientDanger,
+			ingredientCarcinogenYN,
+			ingredientCarcinogenText,
+			ingredientCareYN,
+			ingredientCareText,
+			ingredientPurpose,
+			ingredientFunction,
+			writer,
+			writeDate,
+			modifier,
+			modifyDate,
+			useYN
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX	
+	
+		<choose>
+			<!-- 검색어만 검색 -->	
+			<when test="word != ''  and dangerBtn == '' and searchStartDate == '' and searchEndDate == '' ">
+				AND ingredientNameKo LIKE '${word}'
+			</when>	
+			<!-- 위험도 버튼만 검색 -->
+			<when test="word == '' and dangerBtn != '' and searchStartDate == '' and searchEndDate == ''">
+				AND ingredientDanger LIKE #{dangerBtn}
+			</when>	
+			<!-- 기간만 검색 -->
+			<when test="word == '' and dangerBtn == '' and searchStartDate != '' and searchEndDate != ''">
+				 AND writeDate <![CDATA[>=]]> '${searchStartDate}' AND writeDate <![CDATA[<=]]> '${searchEndDate}'
+			</when>
+			<!-- 검색어와 위험도 검색 -->
+			<when test="word != '' and dangerBtn != '' and searchStartDate == '' and searchEndDate == ''">
+				AND ingredientNameKo LIKE '${word}' AND ingredientDanger LIKE #{dangerBtn}
+			</when>
+			<!-- 검색어와 기간 검색 -->
+			<when test="word != '' and dangerBtn == '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientNameKo LIKE '${word}' AND writeDate <![CDATA[>=]]> '${searchStartDate}' AND writeDate <![CDATA[<=]]> '${searchEndDate}'
+			</when>
+			<!-- 위험도와 기간 검색 -->
+			<when test="word == '' and dangerBtn != '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientDanger LIKE #{dangerBtn} AND writeDate <![CDATA[>=]]> '${searchStartDate}' AND writeDate <![CDATA[<=]]> '${searchEndDate}'
+			</when>
+			<!-- 모두 검색 -->
+			<when test="word != '' and dangerBtn != '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientNameKo LIKE '${word}' AND ingredientDanger LIKE #{dangerBtn} AND writeDate <![CDATA[>=]]> '${searchStartDate}' AND writeDate <![CDATA[<=]]> '${searchEndDate}'	
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>			
+		AND 
+			useYN = 'Y' 
+		ORDER BY 
+			ingredientIDX DESC 
+		
+	</select>
+
+
+	<!-- 위험도 조회 -->
+	<select id="getDangerCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			dangerName
+		FROM
+			dangerCode
+		WHERE
+			dangerIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			dangerIDX DESC 
+		
+	</select>		
+	
+	<!-- 용도 조회 -->
+	<select id="getUseCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			useName
+		FROM
+			useCode
+		WHERE
+			useIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			useIDX DESC 
+		
+	</select>	
+	
+
+	
+</mapper>

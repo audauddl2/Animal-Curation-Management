@@ -1,0 +1,196 @@
+package com.owth.controller.bbs;
+
+import java.io.Writer;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kpu.jung.framework.exception.ServiceException;
+import com.owth.service.bbs.ColumnService;
+import com.owth.service.bbs.NoticeService;
+import com.owth.vo.bbs.ColumnVO;
+import com.owth.vo.bbs.NoticeVO;
+ 
+/*
+ * 
+ * 게시판 컬럼 컨트롤러
+ * 목록, 작성, 상세, 수정, 삭제
+ *
+ */
+@Controller
+public class columnController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(columnController.class);
+	
+	@Autowired
+	ColumnService service;
+	@Autowired
+	NoticeService noticeService;
+	
+	// 게시글 목록
+	@RequestMapping("/board/column/columnList")
+	public Map<String, Object> getColumnList(ModelMap modelMap, @ModelAttribute ColumnVO columnVO,
+			@ModelAttribute NoticeVO noticeVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		System.out.println("ColumnList Call Start ===============================================================");
+		List<ColumnVO> columnList = service.getColumnList(columnVO);
+		
+		System.out.println("NoticeList Call Start ===============================================================");
+		List<NoticeVO> noticeList = noticeService.getNoticeList(noticeVO);
+		
+		
+		System.out.println("columnList" + columnList.size());
+		System.out.println("ColumnList Call End ===============================================================");
+		modelMap.addAttribute("columnList", columnList);
+		
+		System.out.println("noticeList" + noticeList.size());
+		System.out.println("NoticeList Call End ===============================================================");
+		modelMap.addAttribute("noticeList", noticeList);
+		
+		return modelMap;
+		
+	}
+	
+	//게시글 작성 화면
+	@RequestMapping("/board/column/columnWrite")
+	public String ColumnInsertView() {
+		
+		return "/board/column/columnWrite";
+	}
+	//게시글 작성 action
+	@RequestMapping("/write")
+	public String getColumnInsert(RedirectAttributes rttr, ModelMap modelMap, Map<String,Object> map, @ModelAttribute ColumnVO columnVO, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception{
+		System.out.println("ColumnController Start =================================================");
+		/*test*/
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+		Iterator<String> iter = multi.getFileNames();
+		MultipartFile multipartFile = null;
+		
+		while(iter.hasNext()) {
+			multipartFile = multi.getFile(iter.next());
+			if(multipartFile.isEmpty() == false) {
+				System.out.println("===================================");
+				System.out.println("name " + multipartFile.getName());
+				System.out.println("filename " + multipartFile.getOriginalFilename());
+				columnVO.setColumnfileName(multipartFile.getOriginalFilename());
+				System.out.println("size " + multipartFile.getSize());
+				System.out.println("===================================");
+			}else {
+				columnVO.setColumnfileName("파일이 없습니다.");
+			}
+		}
+
+			service.getColumnInsert(columnVO, map, request);
+			System.out.println("등록 성공");
+
+			return "redirect:/board/column/columnList";
+	}
+	
+
+	//게시글 상세 조회
+	@RequestMapping("/board/column/columnDetail")
+	public Map<String, Object> getColumnDetail(ModelMap modelMap, @ModelAttribute ColumnVO columnVO, HttpServletRequest request, Writer out) throws ServiceException{
+			
+		System.out.println("columnDetail Call Start ===============================================================");
+		//게시글 조회수 증가
+		service.getColumnViewCnt(columnVO);
+		System.out.println("viewCnt :" + columnVO.getColumnviewCnt());
+		columnVO = service.getColumnDetail(columnVO);
+			
+		System.out.println("columnDetail Call End ===============================================================");
+		modelMap.addAttribute("columnDetail", columnVO);	
+			
+		return modelMap;
+			
+	}
+	
+		// 게시글 검색
+		@RequestMapping("/board/column/columnSearch")
+		public Map<String, Object> getColumnSearch(ModelMap modelMap, @ModelAttribute ColumnVO columnVO,
+				@ModelAttribute NoticeVO noticeVO, HttpServletRequest request, Writer out) throws ServiceException{
+			
+			
+			try{
+				System.out.println("ColumnSearch Call Start ===============================================================");
+				List<ColumnVO> columnSearch = service.getColumnSearch(columnVO);
+				
+				
+				System.out.println("ColumnSearch" + columnSearch.size());
+				System.out.println("ColumnSearch Call End ===============================================================");
+				System.out.println("KeyWord : " + columnVO.getKeyWord());
+				System.out.println("KeyField : " + columnVO.getKeyField());
+				modelMap.addAttribute("columnSearch", columnSearch);
+			
+			}catch (Exception e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	        }
+			
+			return modelMap;
+			
+		}
+	
+	//게시글 수정 view
+	@RequestMapping("/board/column/columnUpdate")
+	public Map<String, Object> ColumnUpdateView(ModelMap modelMap, @ModelAttribute ColumnVO columnVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		columnVO = service.getColumnDetail(columnVO);
+		
+		modelMap.addAttribute("columnUpdate", columnVO);
+		
+		return modelMap;
+	}
+	
+	//게시글 수정 action
+	@RequestMapping("/update")
+	public String getColumnUpdate(RedirectAttributes rttr ,ModelMap modelMap, @ModelAttribute ColumnVO columnVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		System.out.println("==========================테스트=================================");
+		System.out.println("title" + columnVO.getColumnTitle());
+		System.out.println("content" + columnVO.getColumnContent());
+		System.out.println("writer" + columnVO.getWriter());
+		
+		try {
+			
+			service.getColumnUpdate(columnVO);
+			System.out.println("수정 성공================");
+
+			return "redirect:/board/column/columnList";
+
+		} catch (Exception e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+				return "redirect:/board/column/columnList";
+			}
+		}
+		return null;
+
+	}
+	
+	//게시글 삭제 action
+	@RequestMapping("/delete")
+	public String columnDelete(RedirectAttributes rttr ,ModelMap modelMap, @ModelAttribute ColumnVO columnVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		System.out.println("=================IDX" + columnVO.getColumnIDX());
+		
+		service.getColumnDelete(columnVO);
+		
+		return "redirect:/board/column/columnList";
+	}
+	
+}

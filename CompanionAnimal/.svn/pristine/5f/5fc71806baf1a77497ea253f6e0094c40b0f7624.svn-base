@@ -1,0 +1,52 @@
+package com.owth.controller.admin.comment;
+
+import java.io.Writer;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kpu.jung.framework.exception.ServiceException;
+import com.owth.common.RtnMessageUtil;
+import com.owth.service.comment.CommentService;
+import com.owth.vo.comment.CommentVO;
+
+@Controller
+public class CommentController {
+
+	/** The logger. */
+	protected Log logger = LogFactory.getLog(this.getClass());
+	
+	/** Object. */
+	private RtnMessageUtil rtnMessageUtil = new RtnMessageUtil();
+	
+	@Autowired
+	CommentService commentService;
+	
+
+	@RequestMapping("/comment/commentRegisterAction")
+	 public String reviewRegisterAction(ModelMap modelMap, @ModelAttribute CommentVO commentVO, HttpServletRequest request, Writer out) throws ServiceException{
+
+		try{			
+			commentService.commentInsert(commentVO);
+			
+			return "/review/reviewManagement";
+				
+		}catch (Exception e) {
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+		
+			
+		return null;
+			
+	}
+	
+}

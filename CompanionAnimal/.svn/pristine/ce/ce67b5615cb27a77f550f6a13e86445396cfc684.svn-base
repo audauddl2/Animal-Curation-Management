@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Column">
+
+	<!-- 게시글 목록 -->
+	<select id="getColumnList" parameterType="ColumnVO" resultType="ColumnVO">
+  		SELECT
+  		 columnIDX,
+  		 columnTitle,
+  		 writeDate,
+  		 columnviewCnt
+  		FROM 
+  		 bbscolumn
+  		WHERE
+  		 useYN = 'Y'
+  		ORDER BY
+  		 columnIDX DESC	
+	</select>
+
+    <!-- 게시글 등록. -->
+	<insert id="getColumnInsert" parameterType="ColumnVO" useGeneratedKeys="true" keyProperty="columnIDX" >
+		insert into
+		 bbscolumn(columnTitle, columnContent, columnfileName, writer, writeDate)
+		values(#{columnTitle}, #{columnContent}, #{columnfileName}, #{writer} ,NOW())
+	</insert>
+	
+	<!-- 파일 업로드 -->
+	<insert id="insertFile" parameterType="hashmap">
+		INSERT INTO column_file (
+			columnIDX,
+			columnfileName,
+			columnfileRealName,
+			columnfileSize,
+			writer,
+			writeDate
+		) VALUES (
+			#{columnIDX},
+			#{columnfileName},
+			#{columnfileRealName},
+			#{columnfileSize},
+			'Admin',
+			NOW()
+		)
+	</insert>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="getColumnViewCnt">
+		UPDATE bbscolumn
+			SET
+				columnviewCnt = columnviewCnt + 1
+			WHERE
+				columnIDX = ${columnIDX}
+	
+	</update>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="getColumnDetail" parameterType="ColumnVO" resultType="ColumnVO">
+		SELECT
+		 columnIDX
+		 , columnTitle
+		 , columnContent
+		 , writer
+		 , writeDate
+		FROM 
+		 bbscolumn
+		WHERE
+			columnIDX = ${columnIDX}
+	</select>
+	
+	<!-- 게시글 검색 -->
+	<select id="getColumnSearch" parameterType="ColumnVO" resultType="ColumnVO">
+  		SELECT
+  		 columnIDX,
+  		 columnTitle,
+  		 writeDate,
+  		 columnviewCnt
+  		FROM 
+  		 bbscolumn
+  		WHERE
+  		<choose>
+  			<when test="keyWord != '' and keyField == 'columnTitle'">
+  				columnTitle LIKE '%'||#{keyWord}||'%'
+  			</when>
+  			<when test="keyWord != '' and keyField == 'columnContent'">
+  				columnContent LIKE '%'||#{keyWord}||'%'
+  			</when>
+  			<when test="keyWord != '' and keyField == 'writer'">
+  				writer LIKE '%'||#{keyWord}||'%'
+  			</when>
+  		</choose>
+  		 
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="getColumnUpdate">
+		UPDATE
+			bbscolumn
+		SET
+			columnTitle = #{columnTitle}
+			,columnContent = #{columnContent}
+			,modifier = #{writer}
+			,modifyDate = now()
+		WHERE
+			columnIDX = #{columnIDX}
+	
+	</update>
+		
+	<!-- 게시글 삭제 -->
+		<update id="getColumnDelete" parameterType="ColumnVO">
+		UPDATE
+			bbscolumn
+		SET
+			useYN = 'N'
+		WHERE
+			columnIDX = ${columnIDX}
+	
+	</update>
+	
+</mapper>

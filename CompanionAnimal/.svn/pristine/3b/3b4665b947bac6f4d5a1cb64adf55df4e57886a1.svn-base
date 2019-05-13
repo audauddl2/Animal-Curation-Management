@@ -1,0 +1,118 @@
+package com.owth.vo.bbs;
+
+import java.util.Date;
+
+public class ColumnVO {
+	
+	private int columnIDX;					//게시글 번호
+	private String columnTitle="";			//게시글 제목
+	private String columnContent="";			//게시글 내용
+	private String columnfileName="";			//게시글 등록 파일 -> column_file Table 관리
+	private String writer="";					//게시글 작성자 
+	private String writeDate="";				//게시글 등록일
+	private String modifier="";				//게시글 수정자
+	private Date modifyDate;				//게시글 수정일
+	private int columnviewCnt;				//게시글 조회수
+	private int columncontentCnt;			//게시글 댓글 등록수
+	private String useYN="";					//사용 여부
+	
+	/* 검색 */
+	private String keyField;
+	private String keyWord;
+	private String StartDate;
+	private String EndDate;
+	
+	public String getKeyField() {
+		return keyField;
+	}
+	public void setKeyField(String keyField) {
+		this.keyField = keyField;
+	}
+	public String getKeyWord() {
+		return keyWord;
+	}
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+	public String getStartDate() {
+		return StartDate;
+	}
+	public void setStartDate(String startDate) {
+		StartDate = startDate;
+	}
+	public String getEndDate() {
+		return EndDate;
+	}
+	public void setEndDate(String endDate) {
+		EndDate = endDate;
+	}
+	
+	/* column */
+	public String getColumnfileName() {
+		return columnfileName;
+	}
+	public void setColumnfileName(String columnfileName) {
+		this.columnfileName = columnfileName;
+	}
+	public String getModifier() {
+		return modifier;
+	}
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public int getColumncontentCnt() {
+		return columncontentCnt;
+	}
+	public void setColumncontentCnt(int columncontentCnt) {
+		this.columncontentCnt = columncontentCnt;
+	}
+	public int getColumnIDX() {
+		return columnIDX;
+	}
+	public void setColumnIDX(int columnIDX) {
+		this.columnIDX = columnIDX;
+	}
+	public String getColumnTitle() {
+		return columnTitle;
+	}
+	public void setColumnTitle(String columnTitle) {
+		this.columnTitle = columnTitle;
+	}
+	public String getColumnContent() {
+		return columnContent;
+	}
+	public void setColumnContent(String columnContent) {
+		this.columnContent = columnContent;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	public int getColumnviewCnt() {
+		return columnviewCnt;
+	}
+	public void setColumnviewCnt(int columnviewCnt) {
+		this.columnviewCnt = columnviewCnt;
+	}
+	public String getUseYN() {
+		return useYN;
+	}
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+}

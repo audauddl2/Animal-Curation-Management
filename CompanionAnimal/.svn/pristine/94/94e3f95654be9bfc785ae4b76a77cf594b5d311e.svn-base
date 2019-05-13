@@ -1,0 +1,46 @@
+package com.owth.service.codeManagement;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.owth.dao.codeManagement.CodeManagementDAO;
+import com.owth.vo.codeManagement.CodeManagementVO;
+
+@Service
+public class CodeManagementService {
+	
+	/**
+	 * 성분 DAO 클래스
+	 */
+	@Autowired
+	CodeManagementDAO codeManagementDAO;
+	
+	/**
+	 * 위험도를 등록한다.
+	 * @param 위험도 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int dangerInsert(CodeManagementVO codeManagementVO)
+	{
+		return codeManagementDAO.dangerInsert(codeManagementVO);
+	}
+	
+	/**
+	 * 위험도를 조회한다.
+	 * @return 위험도 목록
+	 */
+	public List<CodeManagementVO> getDangerCodeList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getDangerCodeList(codeManagementVO);
+	}
+	
+	/**
+	 * 용도를 조회한다.
+	 * @return 용도 목록
+	 */
+	public List<CodeManagementVO> getUseCodeList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getUseCodeList(codeManagementVO);
+	}
+	
+}

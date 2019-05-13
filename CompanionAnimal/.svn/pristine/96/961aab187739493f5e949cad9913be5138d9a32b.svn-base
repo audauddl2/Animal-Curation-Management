@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="codeManagement">
+	
+	<!-- 위험도 등록 -->
+	<insert id="dangerCodeInsert" parameterType="codeManagementVO">
+		INSERT INTO
+			dangerCode(
+				dangerName,
+				writer,
+				writeDate,
+				modifier,
+				modifiyDate,
+				useYN
+			)VALUES(
+				'#{dangerName}',
+				'#{writer}',
+				now(),
+				'#{modifier}',
+				'#{modifiyDate}',
+				'Y',
+			)					
+	</insert>
+	
+	<!-- 용도 등록 -->
+	<insert id="useCodeInsert" parameterType="codeManagementVO">
+		INSERT INTO
+			dangerCode(
+				useName,
+				writer,
+				writeDate,
+				modifier,
+				modifiyDate,
+				useYN
+			)VALUES(
+				'#{useName}',
+				'#{writer}',
+				now(),
+				'#{modifier}',
+				'#{modifiyDate}',
+				'Y',
+			)					
+	</insert>
+		
+	<!-- 위험도 수정 -->
+	<update id="dangerCodeUpdate">
+		UPDATE
+			dangerCode
+		SET
+			dangerName = #{dangerName}
+		WHERE
+			dangerIDX = #{dangerIDX}
+	</update>
+	
+	<!-- 용도 수정 -->
+	<update id="useCodeUpdate">
+		UPDATE
+			useCode
+		SET
+			useName = #{useName}
+		WHERE
+			useIDX = #{useIDX}
+	</update>
+	
+	<!-- 위험도 조회 -->
+	<select id="getDangerCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			dangerName
+		FROM
+			dangerCode
+		WHERE
+			dangerIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			dangerIDX DESC 
+		
+	</select>		
+	
+	<!-- 용도 조회 -->
+	<select id="getUseCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			useName
+		FROM
+			useCode
+		WHERE
+			useIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			useIDX DESC 
+		
+	</select>	
+	
+	<!-- 등록한 성분에서 위험도 및 등록수 조회 -->
+	<select id="getDangerCodeCntList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT			
+			ingredientDanger, count(*)
+		AS
+			dangerCnt
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX		
+		AND
+			useYN = 'Y'
+		GROUP BY
+			ingredientDanger
+		ORDER BY
+			ingredientDanger DESC 
+		
+	</select>
+	
+	<!-- 등록한 성분에서 용도 및 등록수 조회 -->
+	<select id="getUseCodeCntList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT			
+			ingredientUse, count(*)
+		AS
+			useCnt
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX		
+		AND
+			useYN = 'Y'
+		GROUP BY
+			ingredientUse
+		ORDER BY
+			ingredientUse DESC 
+		
+	</select>
+
+
+</mapper>

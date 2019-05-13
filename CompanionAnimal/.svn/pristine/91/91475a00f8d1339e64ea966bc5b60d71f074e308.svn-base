@@ -1,0 +1,150 @@
+package com.owth.vo.codeManagement;
+
+import com.owth.vo.common.PagingVO;
+
+public class CodeManagementVO extends PagingVO {
+	
+	//위험도
+	private int dangerIDX;						//위험도 Index
+	private String dangerName;					//위험도 이름
+	
+	//용도
+	private int useIDX;						//용도 Index
+	private String useName;					//용도 이름
+	
+	//작성
+	private String writer;						//등록자
+	private String writeDate;					//등록일
+	private String modifier;					//수정자
+	private String modifyDate;					//수정일
+	private String useYN;						//사용여부
+
+	
+	/**
+	 * @return the dangerIDX
+	 */
+	public int getDangerIDX() {
+		return dangerIDX;
+	}
+
+	/**
+	 * @param dangerIDX the dangerIDX to set
+	 */
+	public void setDangerIDX(int dangerIDX) {
+		this.dangerIDX = dangerIDX;
+	}
+
+	/**
+	 * @return the dangerName
+	 */
+	public String getDangerName() {
+		return dangerName;
+	}
+
+	/**
+	 * @param dangerName the dangerName to set
+	 */
+	public void setDangerName(String dangerName) {
+		this.dangerName = dangerName;
+	}
+	
+	/**
+	 * @return the useIDX
+	 */
+	public int getUseIDX() {
+		return useIDX;
+	}
+
+	/**
+	 * @param useIDX the useIDX to set
+	 */
+	public void setUseIDX(int useIDX) {
+		this.useIDX = useIDX;
+	}
+
+	/**
+	 * @return the useName
+	 */
+	public String getUseName() {
+		return useName;
+	}
+
+	/**
+	 * @param useName the useName to set
+	 */
+	public void setUseName(String useName) {
+		this.useName = useName;
+	}
+
+	/**
+	 * @return the writer
+	 */
+	public String getWriter() {
+		return writer;
+	}
+	
+	/**
+	 * @param writer the writer to set
+	 */
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	
+	/**
+	 * @return the writeDate
+	 */
+	public String getWriteDate() {
+		return writeDate;
+	}
+	
+	/**
+	 * @param writeDate the writeDate to set
+	 */
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	
+	/**
+	 * @return the modifier
+	 */
+	public String getModifier() {
+		return modifier;
+	}
+	
+	/**
+	 * @param modifier the modifier to set
+	 */
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
+	
+	/**
+	 * @return the modifyDate
+	 */
+	public String getModifyDate() {
+		return modifyDate;
+	}
+	
+	/**
+	 * @param modifyDate the modifyDate to set
+	 */	
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	
+	/**
+	 * @return the useYN
+	 */
+	public String getUseYN() {
+		return useYN;
+	}
+	
+	/**
+	 * @param useYN the useYN to set
+	 */
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	
+}

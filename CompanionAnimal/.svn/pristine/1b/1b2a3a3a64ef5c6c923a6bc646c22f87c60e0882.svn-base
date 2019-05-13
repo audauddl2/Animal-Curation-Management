@@ -1,0 +1,157 @@
+package com.owth.controller.product;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kpu.jung.framework.exception.ApplicationException;
+import com.kpu.jung.framework.exception.ServiceException;
+import com.kpu.jung.framework.support.web.paging.Pager;
+import com.kpu.jung.framework.support.web.paging.SimplePagerImpl;
+
+import com.owth.common.RtnMessageUtil;
+import com.owth.service.product.ProductService;
+import com.owth.vo.product.ProductVO;
+import com.owth.vo.product.ProductIngredientsVO;
+
+@Controller
+public class productController {
+
+	/** The logger. */
+	protected Log logger = LogFactory.getLog(this.getClass());
+	
+	@Autowired
+	private ProductService productService;
+	
+	/** Object. */
+	private RtnMessageUtil rtnMessageUtil = new RtnMessageUtil();
+	
+	@RequestMapping("/adm/productList")
+	public String getProductList(ModelMap modelMap, @ModelAttribute ProductVO productVo, HttpServletRequest request, Writer out) throws ServiceException{
+
+		// Login Check
+//		MemberLoginVO user = (MemberLoginVO)admLoginUtil.chkLogin(request);
+		
+//		if(user != null){
+			try{
+				/*
+				 * mySQL에서 Paging 처리하기 위해서
+				 * ex1) limit 0, 10
+				 * ex2) limit 10, 10
+				 */
+				if ( productVo.getPageNo() > 1 ) {
+					productVo.setStartPageNo( (productVo.getPageNo() - 1) * 10 );
+				}
+				
+				ProductVO productVO = new ProductVO();											//상품 생성자
+				List<ProductVO> productList = productService.getProductList(productVo);			//상품 List 
+				
+				logger.debug("\n ========================================================================= \n");
+
+				int totalRows = productService.getProductTotalCount(productVo);						// 상품 총 갯수
+				int nodataCnt = 0;
+
+				productVo.setPagingYn("Y");													// paging 처리 ㅇ부
+
+				/*
+				 * Paging 처리
+				 * Paging Block수(blockPerPage) 및 페이지당 Row 수(rowPerPage)는
+				 * 별도 Setting 없을 시 default(10, 10) 설정.
+				 */
+				Pager pager = SimplePagerImpl.newInstance(productVo.getPageNo());
+				pager.setTotalCount(totalRows);	/* 총 Row 수 */
+				//pager.setBlockPerPage(10);
+				//pager.setRowPerPage(10);
+		
+				/* 조회결과 Object return bbsList
+				 * 검색값 Object return bbsVO
+				 * */
+	
+				modelMap.addAttribute("condition", productVo);
+				modelMap.addAttribute("productList", productList);
+				modelMap.addAttribute("pager", pager);
+				modelMap.addAttribute("totalRows", totalRows);
+				
+				return "/product/productList";
+			}catch (Exception e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	        }
+/*			
+		} else {
+			try{
+				out.write(admLoginUtil.getLogoutMessage());				
+			}catch(IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            throw new ApplicationException("io.StreamError", e);
+			}				
+			return null;
+		}
+*/		
+		return null;
+	}
+	
+	@RequestMapping("/adm/productWrite")
+	public String getDicCreate(ModelMap modelMap, @ModelAttribute ProductVO productVo, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		System.out.println("테스트");
+		
+		// Login Check
+//		MemberLoginVO user = (MemberLoginVO)admLoginUtil.chkLogin(request);
+		
+//		if(user != null){
+
+/*		
+			MajorVO majorVo = new MajorVO();										// 전공 구번 설정
+			List<MajorVO> majorList = majorService.getMajorList(majorVo);			//전공구분 List 
+	
+			modelMap.addAttribute("majorList", majorList);							// modelMap에 추가
+*/			
+		 	modelMap.addAttribute("condition", productVo);
+
+		 	if ( productVo.getProductIDX() > 0 ) {
+				try{
+//					ProductVO productVO = productService.getDetail(productVo);
+//					modelMap.addAttribute("productDetail", productVO);	
+				 	
+					return "/product/productWrite";
+						
+				}catch (Exception e) {
+		            if (logger.isErrorEnabled()) {
+		                logger.error(e.getMessage(), e);
+		            }
+		        }
+			} else {
+	
+				return "/product/productWrite";
+			}
+/*			
+		} else {
+			try{
+				out.write(admLoginUtil.getLogoutMessage());				
+			}catch(IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            throw new ApplicationException("io.StreamError", e);
+			}				
+			return null;
+		}
+*/			
+		return null;
+	}
+	
+}

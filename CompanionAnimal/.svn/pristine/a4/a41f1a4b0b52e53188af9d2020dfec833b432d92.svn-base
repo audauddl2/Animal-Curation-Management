@@ -1,0 +1,95 @@
+$(function() {
+    $('#listBtn').click(DicCreate.list);                          // 목록, 리스트
+    $('#saveBtn').click(DicCreate.save);                             // 저장
+    $('#cancellBtn').click(DicCreate.cancle);
+    
+});
+
+var DicCreate = {
+    list : function() {
+        var l_frm       = $('#frm_save');
+
+        l_frm.attr('method', 'post');
+        l_frm.attr('action', '/web/adm/dicList');
+        l_frm.submit();
+    },
+
+    save : function() {
+        var frm = $('#frm_save');
+        var l_idx = $("#idx");
+        var l_major_Gubun = $('#major_Gubun');
+        var l_k_Term = $('#k_Term');
+        var l_e_Term = $('#e_Term');
+        var l_a_Term = $('#a_Term');
+        var l_k_Explain = $('#k_Explain');
+
+        if ( l_major_Gubun.val() == "" || l_major_Gubun.val() == null ) {
+            alert("전공구분을 선택해주세요.");
+            l_major_Gubun.focus();
+            return false;
+        }
+        
+        if ( l_k_Term.val() == "" || l_k_Term.val == null ) {
+            alert("전공용어(한글)을 입력해주세요.");
+            l_k_Term.focus();
+            return false;
+        }
+
+        if ( l_e_Term.val() == "" || l_e_Term.val == null ) {
+            alert("전공용어(영어)을 입력해주세요.");
+            l_e_Term.focus();
+            return false;
+        }
+
+        if ( l_a_Term.val() == "" || l_a_Term.val == null ) {
+            alert("전공용어(아랍어)을 입력해주세요.");
+            l_a_Term.focus();
+            return false;
+        }
+        
+        if ( l_k_Explain.val() == "" || l_k_Explain.val == null ) {
+            alert("전공용어 설명(한글)을 입력해주세요.");
+            l_k_Explain.focus();
+            return false;
+        }
+        
+        $.ajax({
+            url  : "/web/adm/dicSave",
+            type : "post",
+            data : {
+                "idx"                       : $('#idx').val(),
+                "major_Gubun"               : $('#major_Gubun').val(),
+                "k_Term"                    : $('#k_Term').val(),
+                "e_Term"                    : $('#e_Term').val(),
+                "a_Term"                    : $('#a_Term').val(),
+                "k_Explain"                 : $('#k_Explain').val()
+            },
+            dataType : "json",
+            success  : function showResponse(responseText, statusText)  { 
+                //alert(responseText.writer+statusText + "==" + responseText.returnCode );
+                if(responseText.returnCode == 'success'){
+                    alert(responseText.msg);
+                    location.href = "/web/adm/dicList";
+                }else if(responseText.returnCode == 'updateSuccess'){
+                    alert(responseText.msg);
+                    location.href = "/web/adm/dicList";
+                }else{
+                    alert("정상적으로 처리 되지 않았습니다..");
+                }
+            },
+
+            error : function(xhr, errmsg, errobj) {
+                alert(errmsg);
+            }
+        });
+    },
+
+    cancle : function() {
+        var l_frm           = $('#frm_save');
+        
+        l_frm.attr('method', 'post');
+        l_frm.attr('action', '/web/adm/dicList');
+        l_frm.submit();
+    }
+
+}

@@ -1,0 +1,40 @@
+package com.owth.dao.codeManagement;
+
+import java.util.List;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import com.owth.vo.codeManagement.CodeManagementVO;
+import com.owth.vo.ingredientRST.IngredientRSTVO;
+
+@Repository
+public class CodeManagementDAO extends SqlSessionDaoSupport {
+	
+	/**
+	 * 위험도를 등록한다.
+	 * @param 위험도 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int dangerInsert(CodeManagementVO codeManagementVO)
+	{
+		return getSqlSession().insert("codeManagement.dangerInsert", codeManagementVO);
+	}
+	
+	/**
+	 * 위험도를 조회한다.
+	 * @return 위험도 목록
+	 */
+	public List<CodeManagementVO> getDangerCodeList(CodeManagementVO codeManagementVO) {
+		return getSqlSession().selectList("codeManagement.getDangerCodeList", codeManagementVO);
+	}
+	
+	/**
+	 * 용도를 조회한다.
+	 * @return 용도 목록
+	 */
+	public List<CodeManagementVO> getUseCodeList(CodeManagementVO codeManagementVO) {
+		return getSqlSession().selectList("codeManagement.getUseCodeList", codeManagementVO);
+	}
+	
+}

@@ -1,0 +1,552 @@
+$(function() {
+     // ÀüÈ­¹øÈ£ Å¸ÀÔ º¯°æ 
+     // »ç¿ë¹ý : class="tel_type" Ãß°¡
+    $('input.tel_type').each(function(p_index, p_item) {
+        var l_teltype = $(this);
+
+        l_teltype.focus(function() { 
+           l_teltype.val(l_teltype.val().replace(/-/g,''));
+           l_teltype.select();
+        });
+
+        l_teltype.keydown(function() {
+           if((event.keyCode<48 || event.keyCode>57) && (event.keyCode<96 || event.keyCode>106) && (event.keyCode!=8) && (event.keyCode!=9) && (event.keyCode != 45) && (event.keyCode != 46) && (event.keyCode<37 || event.keyCode>40))
+                event.returnValue = false;
+            else
+                event.returnValue = true;
+        });
+
+        l_teltype.blur(function() { 
+           if(l_teltype.val() != "") {
+                var l_value = l_teltype.val().replace(/-/g,'');
+                var l_lengh = l_value.length;
+                if(l_lengh <= 12 && l_lengh >= 9) {
+                    if(/^(02)/.test(l_value)) {                                  // Ã³À½ µÎ±ÛÀÚ°¡ 02·Î ½ÃÀÛÇÏ´Â °æ¿ì
+                        l_teltype.val(l_value.substring(0,2) + "-" + l_value.substring(2, l_lengh-4) + "-" + l_value.substring(l_lengh-4, l_lengh));
+                    } else if(/^(00[1-9]|01[0-9]|0[3-9][0-9])/.test(l_value)) {  // Ã³À½ ¼¼±ÛÀÚ°¡ 001~009 or 010~019 or 030~099  ·Î ½ÃÀÛÇÏ´Â °æ¿ì
+                        l_teltype.val(l_value.substring(0,3) + "-" + l_value.substring(3, l_lengh-4) + "-" + l_value.substring(l_lengh-4, l_lengh));
+                    } else if(/^(1[3-7][0-9][0-9])/.test(l_value)) {             // Ã³À½ ³×±ÛÀÚ°¡ 1300~1799 ·Î ½ÃÀÛÇÏ´Â °æ¿ì
+                        l_teltype.val(l_value.substring(0,4) + "-" + l_value.substring(4, l_lengh-4) + "-" + l_value.substring(l_lengh-4, l_lengh));
+                    }
+                } else if(l_lengh <= 8 && l_lengh >= 7) {
+                    if(/^(1[3-7][0-9][0-9])/.test(l_value)) {
+                        l_teltype.val(l_value.substring(0,4) + "-" + l_value.substring(4, l_lengh));
+                    }
+                }
+            }
+        });
+    });
+
+    /*
+     * ´Þ·Â Å¸ÀÔ º¯°æ
+     * »ç¿ë¹ý : class="calendar_type" Ãß°¡
+     */
+    $('input.calendar_type').each(function(p_index, p_item) {
+        var l_calendar = $(this);
+
+        l_calendar.focus(function() { 
+           l_calendar.val(l_calendar.val().replace(/-/g,''));
+           l_calendar.select();
+        });
+
+        l_calendar.keydown(function() {
+           if((event.keyCode<48 || event.keyCode>57) && (event.keyCode<96 || event.keyCode>106) && (event.keyCode!=8) && (event.keyCode!=9) && (event.keyCode != 45) && (event.keyCode != 46) && (event.keyCode<37 || event.keyCode>40))
+                event.returnValue = false;
+            else
+                event.returnValue = true;
+        });
+
+        l_calendar.blur(function() { 
+           if(l_calendar.val() != "") {
+                var l_value = l_calendar.val().replace(/-/g,'');
+                var l_length = l_value.length;
+                if(l_length == 8) {
+                    if(/^([1-9])/.test(l_value)) {
+                        l_calendar.val(l_value.substring(0,4) + "-" + l_value.substring(4, l_length-2) + "-" + l_value.substring(l_length-2, l_length));
+                    }
+                }
+            }
+        });
+    });
+
+     // ÇÑ±Û or ¿µ¾î¸¸ ÀÔ·Â
+     // »ç¿ë¹ý : class="koreng_type" Ãß°¡
+     /** charCodeAt() ¹üÀ§
+         ¼ýÀÚ 0~9    => 48~57
+         ¿µ¹® ´ë¹®ÀÚ => 65~90
+              ¼Ò¹®ÀÚ => 97~122
+         ÇÑ±Û °¡~ÆR  => 45032~55203
+               ÀÚÀ½  => 12593~12622
+               ¸ðÀ½  => 12623~12643
+        [À¯´ÏÄÚµå]
+        [ÃÊ¼º+Á¾¼º] 12593(¤¡) ~ 12622(¤¾)
+        [Áß¼º]      12623(¤¿) ~ 12684(¤ü)
+        [Á¶ÇÕ]      44032(°¡) ~ 55203(ÆR)
+     **/
+    $('input.koreng_type').each(function(index, item) {
+        var o_korengtype = $(this);
+        o_korengtype.keyup(function() {
+           for(i=0; i<o_korengtype.val().length; i++){
+               var chkAt = o_korengtype.val().charCodeAt(i);
+               if(!(chkAt >= 97 && chkAt <= 122) && !(chkAt >= 65 && chkAt <= 90) && !(chkAt >= 12593 && chkAt <= 12684) && !(chkAt >= 44032 && chkAt <= 55203) && chkAt != 32) {
+                  //  alert("ÇÑ±Û ¶Ç´Â ¿µ¾î¸¸ ÀÔ·Â °¡´É ÇÕ´Ï´Ù.");
+                    event.returnValue = false;
+                    o_korengtype.val(o_korengtype.val().replace(/[^a-z^A-Z^°¡-ÆR^¤¡-¤¾^¤¿-¤ü^' ']/g,''));
+               }else {
+                    event.returnValue = true;
+               }
+           }
+        });
+    });
+
+     // ÇÑ±Û¸¸ ÀÔ·Â
+     // »ç¿ë¹ý : class="kor_type" Ãß°¡
+     /** charCodeAt() ¹üÀ§
+         ¼ýÀÚ 0~9    => 48~57
+         ÇÑ±Û °¡~ÆR  => 45032~55203
+               ÀÚÀ½  => 12593~12622
+               ¸ðÀ½  => 12623~12643
+        [À¯´ÏÄÚµå]
+        [ÃÊ¼º+Á¾¼º] 12593(¤¡) ~ 12622(¤¾)
+        [Áß¼º]      12623(¤¿) ~ 12684(¤ü)
+        [Á¶ÇÕ]      44032(°¡) ~ 55203(ÆR)
+     **/
+    $('input.kor_type').each(function(index, item) {
+        var o_kortype = $(this);
+        o_kortype.keyup(function() {
+           for(i=0; i<o_kortype.val().length; i++){
+               var chkAt = o_kortype.val().charCodeAt(i);
+               if(!(chkAt >= 12593 && chkAt <= 12684) && !(chkAt >= 44032 && chkAt <= 55203) && chkAt != 32) {
+                  //  alert("ÇÑ±Û ¶Ç´Â ¿µ¾î¸¸ ÀÔ·Â °¡´É ÇÕ´Ï´Ù.");
+                    event.returnValue = false;
+                    o_kortype.val(o_kortype.val().replace(/[^°¡-ÆR^¤¡-¤¾^¤¿-¤ü^' ']/g,''));
+               }else {
+                    event.returnValue = true;
+               }
+           }
+        });
+    });
+
+     // ¿µ¾î¸¸ ÀÔ·Â
+     // »ç¿ë¹ý : class="eng_type" Ãß°¡
+     /** charCodeAt() ¹üÀ§
+         ¼ýÀÚ 0~9    => 48~57
+         ¿µ¹® ´ë¹®ÀÚ => 65~90
+              ¼Ò¹®ÀÚ => 97~122
+     **/
+    $('input.eng_type').each(function(index, item) {
+        var o_engtype = $(this);
+        o_engtype.keyup(function() {
+           for(i=0; i<o_engtype.val().length; i++){
+               var chkAt = o_engtype.val().charCodeAt(i);
+               if(!(chkAt >= 97 && chkAt <= 122) && !(chkAt >= 65 && chkAt <= 90) && chkAt != 32) {
+                  //  alert("ÇÑ±Û ¶Ç´Â ¿µ¾î¸¸ ÀÔ·Â °¡´É ÇÕ´Ï´Ù.");
+                    event.returnValue = false;
+                    o_engtype.val(o_engtype.val().replace(/[^a-z^A-Z^' ']/g,''));
+               }else {
+                    event.returnValue = true;
+               }
+           }
+        });
+    });
+
+});
+
+var JsUtil = {
+    /**
+     * select box°¡ ¿©·¯°³ ÀÖ°í, 1´Ü°è, 2´Ü°è, ... Á¾¼ÓÀûÀÎ ±¸Á¶ÀÎ °æ¿ì µ¿ÀûÀ¸·Î »óÀ§ select box¿¡ µû¶ó ÇÏÀ§ select boxÀÇ µ¥ÀÌÅÍ¸¦ ±¸¼ºÇÑ´Ù.
+     * @param param.url                  : °á°ú µ¥ÀÌÅÍ¸¦ Á¦°øÇÏ´Â ¼­¹öÂÊ url (ex> donation_cts_gibupgmcts.do?action=gibupgmclscode2List)
+     * @param param.chaininfo            : Ã¼ÀÎ¿¡ ´ëÇÑ Á¤º¸¸¦ °¡Áö°í ÀÖ´Â collection
+     * @param param.chaininfo.actionname : change ÀÌº¥Æ®°¡ ¹ß»ýÇßÀ» ¶§ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´äÀ» Ã³¸®ÇÒ actionname
+     * @param param.chaininfo.selector   : Ã¼ÀÎÀ» Çü¼ºÇÏ°í ÀÖ´Â select box¸¦ °¡¸®Å°´Â css selector
+     * ex>
+            JsUtil.initSelectBoxChain({
+                 url : 'donation_cts_gibupgmcts.do'  // ¿äÃ»À» Ã³¸®ÇÒ ¼­¹ö url Á¤º¸
+                ,chaininfo : [
+                    { selector : '#area_list select[name="gibupgmclscode1"]', actionname : 'gibupgmclscode2List' },  // chainÀÇ Ã¹¹øÂ° select box css selector ÁöÁ¤ ¹× change ÀÌº¥Æ® ¹ß»ý ½Ã ¿äÃ»À» Ã³¸®ÇÒ ¼­¹öÀÇ actionname
+                    { selector : '#area_list select[name="gibupgmclscode2"]' }  // chainÀÇ µÎ¹øÂ° select box css selector. ¸¶Áö¸· element´Â change ÀÌº¥Æ®°¡ ÇÊ¿ä ¾øÀ¸¹Ç·Î actionname ÁöÁ¤ ÇÊ¿ä ¾øÀ½
+                ]
+            });
+     */
+    initSelectBoxChain : function(param) {
+        try {
+            // select box chain ÀüÃ¼ °³¼ö ¼³Á¤
+            var l_total_size = (param.chaininfo).length;
+
+            // chainÀÇ °¹¼ö°¡ 1ÀÎ °æ¿ì´Â ¾Æ¹«·± Ã³¸®¸¦ ÇÏÁö ¾Ê´Â´Ù.
+            if(l_total_size == 1) {
+                return;
+            }
+
+            // ¸Å°³º¯¼ö¿¡ ÇØ´çÇÏ´Â select box ÇÏÀ§¿¡ ÀÖ´Â select box¸¦ ÃÊ±âÈ­ ÇÏ´Â ÇÔ¼ö ¼±¾ð
+            // @param p_base_index : select box chain Áß, change event°¡ ¹ß»ýÇÑ select boxÀÇ index °ª
+            var l_init_child_select_box = function(p_base_index) {
+                for(var i=p_base_index + 1; i<l_total_size; i++) {
+                    var l_thisobj = $(param.chaininfo[i].selector);
+                    if(l_thisobj.children().get(0).value == '') {
+                        l_thisobj[0].length = 1;
+                    } else {
+                        l_thisobj[0].length = 0;
+                    }
+                }
+            }
+
+            // ¸Å°³º¯¼ö¿¡ ÇØ´çÇÏ´Â select box¸¦ Æ÷ÇÔÇÏ¿© »óÀ§¿¡ ÀÖ´Â select boxµéÀÇ ¼±ÅÃµÈ °ªÀ» È°¿ëÇÏ¿© ¼­¹ö¿¡ ÁúÀÇÇÒ querystring ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö ¼±¾ð
+            // @param p_base_index : select box chain Áß, change event°¡ ¹ß»ýÇÑ select boxÀÇ index °ª
+            var l_get_querystring = function(p_base_index) {
+                var l_returnvalue = '';
+                
+                for(var i=0; i<=p_base_index; i++) {
+                    l_returnvalue += '&code' + (i+1) + '=' + $(param.chaininfo[i].selector).val();
+                }
+                return l_returnvalue;
+            }
+
+            // ¸¶Áö¸· select box¸¦ Á¦¿ÜÇÏ°í °¢ select box¿¡ change ÀÌº¥Æ®°¡ ¹ß»ýÇÒ °æ¿ì È£ÃâµÉ ¼­¹ö ÁÖ¼Ò Á¤º¸¸¦ ¼³Á¤, change ÀÌº¥Æ®¸¦ µî·Ï
+            for(var i=0; i<l_total_size-1; i++) {
+                var l_current_obj = $(param.chaininfo[i].selector);
+
+                l_current_obj.data('index', i);
+                l_current_obj.change(function() {
+                    // chain¿¡¼­ ÇöÀç change ÀÌº¥Æ®°¡ ÀÏ¾î³­ °÷ÀÇ index ¹øÈ£¸¦ ±¸ÇÑ´Ù.
+                    var l_index = $(this).data('index');
+
+                    // change ÀÌº¥Æ®°¡ ÀÏ¾î³µÀ» ¶§ ´ë»óÀÌ µÇ´Â °´Ã¼(select box)¸¦ Ä³½ÌÇÑ´Ù.
+                    var l_target_index = l_index + 1;
+                    var l_target_obj = $(param.chaininfo[l_target_index].selector);
+                    
+                    // ±¸Á¶ÀûÀ¸·Î ´ë»ó °´Ã¼ÀÇ ÇÏÀ§¿¡ ÀÖ´Â °´Ã¼(select box)ÀÇ µ¥ÀÌÅÍ¸¦ ¸ðµÎ ÃÊ±âÈ­ ÇÑ´Ù.
+                    for(var l_clear_index = l_target_index + 1; l_clear_index < l_total_size; l_clear_index++) {
+                        var l_clear_obj = $(param.chaininfo[l_clear_index].selector);
+                        $(l_clear_obj)[0].length = 1;
+                    }
+
+                    // ´ë»ó °´Ã¼ÀÇ µ¥ÀÌÅÍ¸¦ ±¸¼ºÇÑ´Ù.
+                    l_target_obj.configSelectBox({
+                         url         : param.url + '?action=' + param.chaininfo[l_index].actionname
+                        ,querystring : l_get_querystring(l_index)
+                    });
+                });
+            }
+        } catch(e) {
+            alert("[jsutil.js's initSelectBoxChain] " + e.description);
+        }
+    },
+    /**
+     * json ÇüÅÂÀÇ µ¥ÀÌÅÍ¸¦ UI¿¡ ¹ÙÀÎµù Ã³¸®
+     *   ÁÖÀÇ! ¹Ýµå½Ã json key¿Í form uiÀÇ name ¼Ó¼ºÀÌ ÀÏÄ¡ÇØ¾ßÇÑ´Ù.
+     * @param p_html_form_element   : binding µÉ html form element °´Ã¼
+     * @param p_json_data           : bind data
+     */
+    bindUiFormByJson : function(p_html_form_element, p_json_data) {
+        try {
+            var l_jquery_form = $(p_html_form_element);
+            if(l_jquery_form.size() == 0) {
+                alert('jsutil.js bindUiFormByJson - Á¸ÀçÇÏÁö ¾Ê´Â form elementÀÔ´Ï´Ù.');
+                return;
+            }
+
+            var l_json = null;
+            if(p_json_data[0] != undefined) {
+                l_json = p_json_data[0];
+            } else {
+                l_json = p_json_data;
+            }
+
+            $.each(l_jquery_form[0].elements, function(p_index, p_item) {
+                $(p_item).setValue(l_json[p_item.name]);
+            });
+        } catch(e) {
+            alert("[jsutil.js's bindUiFormByJson] " + e.description);
+        }
+    }
+}
+
+/**
+ * jquery »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼ö È®Àå
+ *   - ¸¶À½²¯ ¼öÁ¤ÇØ¼­ »ç¿ëÇÏ¼¼¿ä.
+ *   - ¶óÀÌ¼¾½º µîÀº ¿À´º¿ùÀÇ °³ÇÑÅ×³ª °¡Á®´Ù ÁÖ¼¼¿ä.
+ *   - ¼º´É °³¼±ÀÌ ÀÖÀ¸¸é °øÀ¯Á» ÇÕ½Ã´Ù!! robertdh@naver.com À¸·Î ¿¬¶ôÁÖ¼¼¿ä~
+ *   - ÀÌ»ó (ÁÖ)ÁöÅõÀÌÁ¤º¸±â¼ú ¸¸³â ´ë¸®¸¦ ²Þ²Ù´Â Á¤´îÀÌ¾ú½À´Ï´Ù~
+ */
+jQuery.fn.extend({
+    /**
+     * ajax¸¦ ÀÌ¿ëÇØ¼­ select boxÀÇ µ¥ÀÌÅÍ¸¦ ±¸¼ºÇÏ´Â ÇÔ¼ö
+     *   ´ë»óÀÌ µÇ´Â select boxÀÇ Ã¹¹øÂ° option value = '' ÀÌ¸é Á¦°Å¸¦ ¾ÈÇÏ°í ±×·¸Áö ¾ÊÀ¸¸é Á¦°ÅÇÏ°í »õ·Î¿î µ¥ÀÌÅÍ·Î ±¸¼ºÇÕ´Ï´Ù.
+     * @param param               : json format
+     * @param param.url           : °á°ú µ¥ÀÌÅÍ¸¦ Á¦°øÇÏ´Â ¼­¹öÂÊ url (ex> donation_cts_gibupgmcts.do?action=gibupgmclscode2List)
+     * @param param.querystring   : ¼­¹ö¿¡ Àü´ÞÇÒ ÁúÀÇ ¹®Àå(ex> code1=12&code2=32&code3=23)
+     * @param param.selectedvalue : µ¿ÀûÀ¸·Î option list°¡ ±¸¼ºµÈ ÈÄ ±âº»ÀûÀ¸·Î ¼±ÅÃµÈ °ªÀ» ¼³Á¤ÇÒ °ª
+
+     ¿¹½Ã>
+            selectGibupgmclscode2List : function(p_gibupgmclscode1) {
+                try {
+                    $('#area_list select[name="gibupgmclscode2"]').configSelectBox({
+                         url          : 'donation_cts_gibupgmcts.do?action=gibupgmclscode2List'
+                        ,querystring  : 'code1=12&code2=32&code3=23'
+                    });
+                } catch(e) {
+                    alert("[donation_cts_gibupgmcts_list.js's selectGibupgmclscode2List] " + e.description);
+                }
+            }
+     */
+    configSelectBox : function(param) {
+        return this.each(function(p_index, p_item) {
+            try {
+                var $this = $(this);
+
+                // select box¸¸ Ã³¸® °¡´ÉÇÏµµ·Ï Á¦ÇÑ
+                if($this[0].tagName.toUpperCase() != 'SELECT') {
+                    alert("[jsutil.js's configSelectBox - select box ¿ä¼Ò¸¸ configSelectBox ¸Þ¼Òµå¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.] " + e.description);
+                    return;
+                }
+
+                // Á¸ÀçÇÏ´Â element¿¡ ´ëÇÑ °ÍÀÎÁö È®ÀÎ
+                if($this.size() == 0) {
+                    alert("[jsutil.js's configSelectBox - Á¸ÀçÇÏÁö ¾Ê´Â selector·Î configSelectBox ¸Þ¼Òµå¸¦ »ç¿ëÇÏ¿´½À´Ï´Ù.] " + e.description);
+                    return;
+                }
+
+                // µ¥ÀÌÅÍ ±¸¼º
+                jQuery.ajax({
+                    type : 'GET'
+                    ,url : param.url
+                    ,dataType : 'text'
+                    ,data : param.querystring
+                    ,success : function(p_json) {
+                        try {
+                            // ´ë»ó selectbox ÃÊ±âÈ­ - ±â ±¸¼ºµÈ option element Á¦°Å
+                            if($this.children().get(0).value == '' || $this.children().get(0).value == null) {
+                                $this[0].length = 1;
+                            } else {
+                                $this[0].length = 0;
+                            }
+
+                            // µ¥ÀÌÅÍ µ¿Àû ±¸¼º
+                            $.each(eval('('+p_json+')'), function(p_index, p_item) {
+                                $this.append('<option value="'+p_item.code+'">'+p_item.name+'</option>');
+                            });
+
+                            // ÇöÀç ¼±ÅÃµÈ °ª ¼³Á¤
+                            if(param.selectedvalue != undefined && param.selectedvalue != '') {
+                                $this.setValue(param.selectedvalue);
+                            }
+                        } catch(e) {
+                            alert("[jsutil.js's configSelectBox ajax] " + e.description);
+                        }
+                    }
+                });
+            } catch(e) {
+                alert("[jsutil.js's configSelectBox] " + e.description);
+            }
+        });
+    },
+    /**
+     * "Á¶È¸ÁßÀÔ´Ï´Ù" ¸Þ¼¼Áö¸¦ Ç¥½ÃÇÏ´Â ÇÔ¼ö
+     * @param param.message : ¸Þ¼¼Áö ³»¿ë
+     */
+    showLoadingMessage : function(param) {
+        return this.each(function() {
+            try {
+                var $this = $(this);
+                var l_loadingobj = $this.children('p[class="loading_message"]');
+                if(l_loadingobj.size() == 0) {
+                    $this.append('<p class="loading_message" style="top:50px"><img src="images/loading.gif" alt="Á¶È¸ÁßÀÔ´Ï´Ù." /></p>');
+                } else {
+                    l_loadingobj.show();
+                }
+            } catch(e) {
+                alert("[jsutil.js's showLoadingMessage] " + e.description);
+            }
+        });
+    },
+    /**
+     * "Á¶È¸ÁßÀÔ´Ï´Ù" ¸Þ¼¼Áö¸¦ Ç¥½ÃÇÏ´Â ÇÔ¼ö
+     */
+    hideLoadingMessage : function() {
+        return this.each(function() {
+            try {
+                var $this = $(this);
+                var l_loadingobj = $this.children('p[class="loading_message"]');
+                if(l_loadingobj.size() > 0) {
+                    l_loadingobj.hide();
+                }
+            } catch(e) {
+                alert("[jsutil.js's hideLoadingMessage] " + e.description);
+            }
+        });
+    },
+    /**
+     * °ª ¼³Á¤ ÇÔ¼ö
+     * @param p_value : ¼³Á¤ÇÒ °ª
+     */
+    setValue : function(p_value) {
+        return this.each(function() {
+            try {
+                var $this = $(this);
+                if($this.size() == 0) {
+                    return this;
+                }
+                switch($this[0].tagName.toUpperCase()) {
+                case 'INPUT' :
+                    switch($this.attr('type').toUpperCase()) {
+                    case 'TEXT' :
+                    case 'HIDDEN' :
+                    case 'PASSWORD' :
+                        $this.val(p_value);
+                        break;
+                    case 'CHECKBOX' :
+                    case 'RADIO' :
+                        if($this.val() == p_value) {
+                            $this.attr('checked', true);
+                        } else {
+                            $this.attr('checked', false);
+                        }
+                        break;
+                    }
+                    break;
+                case 'TEXTAREA' :
+                    $this.val(p_value);
+                    break;
+                case 'SELECT' :
+                    var l_selected_index = 0;
+                    $.each($this.children('option'), function(p_index, p_item) {
+                        if($(p_item).val() == p_value) {
+                            l_selected_index = p_index;
+                            return false; // break
+                        }
+                    });
+                    $this.children('option:eq('+l_selected_index+')').attr('selected', true);
+                    break;
+                }
+            } catch(e) {
+                alert("[jsutil.js's setValue] " + e.description);
+            }
+        });
+    },
+    /**
+     * ÀÔ·Â ¿¤¸®¸ÕÆ®¿¡ ´ëÇÑ ¼ýÀÚ Çü½Ä Ã³¸®
+     */
+    numberFormat : function(p_divider_y) {
+        return this.each(function() {
+            try {
+                var $this = $(this);
+
+                // ¼ýÀÚ,ÄÞ¸¶,backspace,enter key¸¸ ÀÔ·Â °¡´ÉÇÏµµ·Ï Á¦ÇÑ
+                $this.keydown(function(p_event) {
+                    var l_keycode = p_event.keyCode;
+                    var l_str     = l_keycode > 57 ? String.fromCharCode(l_keycode-48) : String.fromCharCode(l_keycode);
+                    var l_pattern = /^[0-9]+$/;
+                    // back-space, tab-key enter-key, delete-key, ¡ç, ¡è, ¡æ, ¡é´Â ÀÔ·Â °¡´ÉÇÏµµ·Ï ÇÔ
+                    if(l_keycode == 8 || l_keycode == 9 || l_keycode == 13 || l_keycode == 46 || l_keycode == 37 || l_keycode == 38 || l_keycode == 39 || l_keycode == 40) {
+                        return true;
+                    }
+
+                    // ¼ýÀÚ¸¸ ÀÔ·Â °¡´ÉÇÏµµ·Ï ÇÔ
+                    if(!l_pattern.test(l_str)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+
+                if(p_divider_y == undefined) {
+                    // Æ÷Ä¿½º¸¦ ÀÒ¾úÀ» ¶§ Ã³¸® - 999,999,999 formatÀ¸·Î º¯È¯ Ã³¸®
+                    $this.blur(function() {
+                        var l_str = $(this).val();
+                        var l_arr_newstr = new Array();
+                        var l_counter = 0;
+                        if(l_str.indexOf(',') != -1) {
+                            return true;
+                        }
+                        for(var i=l_str.length-1; i>=0; i--) {
+                            if((l_counter >= 3) && (l_counter % 3 == 0)) {
+                                l_arr_newstr.push(',');
+                            }
+                            l_arr_newstr.push(l_str.charAt(i));
+                            l_counter++;
+                        }
+                        $this.val(l_arr_newstr.reverse().join(''));
+                    });
+
+                    // Æ÷Ä¿½º¸¦ ¾ò¾îÀ» ¶§ Ã³¸® - number formatÀ» À§ÇÑ ÄÞ¸¶¸¦ ¸ðµÎ Á¦°ÅÇÑ´Ù.
+                    $this.focus(function() {
+                        $this.val($this.val().replace(/,/g, ''));
+                    });
+                }
+            } catch(e) {
+                alert("[jsutil.js's numberFormat] " + e.description);
+            }
+        });
+    },
+    /**
+     * ³¯Â¥ Çü½ÄÀ¸·Î º¯È¯
+     */
+    dateFormat : function() {
+        return this.each(function() {
+            try {
+                var $this = $(this);
+
+                // ¼ýÀÚ,ÄÞ¸¶,backspace,enter key¸¸ ÀÔ·Â °¡´ÉÇÏµµ·Ï Á¦ÇÑ
+                $this.keydown(function(p_event) {
+                    var l_keycode = p_event.keyCode;
+                    var l_str     = l_keycode > 57 ? String.fromCharCode(l_keycode-48) : String.fromCharCode(l_keycode);
+                    var l_pattern = /^[0-9]+$/;
+                    var l_value   = $this.val();
+
+                    // back-space, enter-key, delete-key´Â ÀÔ·Â °¡´ÉÇÏµµ·Ï ÇÔ
+                    if(l_keycode == 8 || l_keycode == 13 || l_keycode == 46) {
+                        if(l_keycode == 8) {
+                            switch(l_value.length) {
+                            case 6 :
+                            case 9 :
+                                $this.val(l_value.substring(0, l_value.length - 1));
+                                break;
+                            }
+                        }
+                        return true;
+                    }
+
+                    // ÀÔ·Â ¹®ÀÚ¿­ ±æÀÌ°¡ 10ÀÚ¸®(- Æ÷ÇÔ)³ÑÀ» °æ¿ì ´õÀÌ»ó ÀÔ·Â ¸øÇÏµµ·Ï ¸·À½ && ÀÔ·Â ¹®ÀÚ¿­ ±æÀÌ¿¡ µû¸¥ '-' ±âÈ£ »ðÀÔ Ã³¸®
+                    switch(l_value.length) {
+                    case 4 :
+                        $this.val(l_value + '-');
+                        break;
+                    case 7 :
+                        $this.val(l_value + '-');
+                        break;
+                    case 10 :
+                        return false;
+                    }
+
+                    // ¼ýÀÚ¸¸ ÀÔ·Â °¡´ÉÇÏµµ·Ï ÇÔ
+                    if(!l_pattern.test(l_str)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+            } catch(e) {
+                alert("[jsutil.js's dateFormat] " + e.description);
+            }
+        });
+    }
+})
+
+var JsDebugUtil = {
+    /**
+     * json ±¸Á¶¸¦ ºÐ¼®ÇØÁÖ´Â ÇÔ¼ö(¹è¿­ »©°í ¤»¤»)
+     * @param p_json
+     */
+    parseJson : function(p_json) {
+        try {
+            var msg = '';
+            for(var key in p_json) {
+                msg += 'p_json['+key+'] : **'+p_json[key]+'**\n';
+            }
+            alert(msg);
+        } catch(e) {
+            alert("[jsutil.js's JsDebugUtil.parseJson] " + e.description);
+        }
+    }
+}

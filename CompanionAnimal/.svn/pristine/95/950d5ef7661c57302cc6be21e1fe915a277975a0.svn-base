@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ingredientRST">
+	
+	<!-- 성분 등록 -->
+	<insert id="ingredientInsert" parameterType="ingredientRSTVO">
+		INSERT INTO
+			ingredientRST(
+				ingredientNameKo,
+				ingredientNameEn,
+				ingredientUse,
+				ingredientDanger,
+				ingredientCarcinogenYN,
+				ingredinetCarcinogenText,
+				ingredientCareYN,
+				ingredientCareText,
+				ingredientPurpose,
+				ingredientFunction,
+				writer,
+				writeDate,
+				modifier,
+				modifiyDate,
+				useYN
+			)VALUES(
+				#{ingredientNameKo},
+				#{ingredientNameEn},
+				#{ingredientUse},
+				#{ingredientDanger},
+				#{ingredientCarcinogenYN},
+				#{ingredientCarcinogenText},
+				#{ingredientCareYN},
+				#{ingredientCareText},
+				#{ingredientPurpose},
+				#{ingredientFunction},
+				#{writer},
+				now(),
+				#{modifier},
+				#{modifiyDate},
+				Y,
+			)					
+	</insert>
+	
+	<!-- 성분을 조회 -->
+	<select id="getIngredientList" parameterType="ingredientRSTVO" resultType="ingredientRSTVO">
+		SELECT
+			ingredientIDX,
+			ingredientNameKo,
+			ingredientNameEn,
+			ingredientUse,
+			ingredientDanger,
+			ingredientCarcinogenYN,
+			ingredientCarcinogenText,
+			ingredientCareYN,
+			ingredientCareText,
+			ingredientPurpose,
+			ingredientFunction,
+			writer,
+			writeDate,
+			modifier,
+			modifyDate,
+			useYN
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			ingredientIDX DESC 
+		
+	</select>
+	
+	<!-- 성분을 검색 -->
+	<select id="getSearchList" parameterType="ingredientRSTVO" resultType="ingredientRSTVO">
+		SELECT
+			ingredientIDX,
+			ingredientNameKo,
+			ingredientNameEn,
+			ingredientUse,
+			ingredientCarcinogenYN,
+			ingredientCarcinogenText,
+			ingredientCareYN
+			ingredientPurpose,
+			ingredientFunction,
+			writer,
+			writeDate,
+			modifier,
+			modifyDate,
+			useYN
+		FROM
+			ingredientRST
+		WHERE
+			ingredientIDX	
+		<choose>
+			<!-- 검색어만 검색 -->	
+			<when test="word != '' and dangerBtn = '' and searchStartDate = '' and searchEndDate = ''">
+				And ingredientNameKO LIKE '%${word}%'			
+			</when>	
+			<!-- 위험도 버튼만 검색 -->
+			<when test="word = '' and dangerBtn != '' and searchStartDate = '' and searchEndDate = ''">
+				And ingredientDanger LIKE '${dangerBtn}'			
+			</when>	
+			<!-- 기간만 검색 -->
+			<when test="word = '' and dangerBtn = '' and searchStartDate != '' and searchEndDate != ''">
+				AND writeDate <![CDATA[>]]>= ${searchStartDate} AND writeDate <![CDATA[<]]>= ${searchEndDate}			
+			</when>
+			<!-- 검색어와 위험도 검색 -->
+			<when test="word = '' and dangerBtn != '' and searchStartDate = '' and searchEndDate = ''">
+				AND ingredientNameKO LIKE '%${word}%' AND ingredientDanger LIKE '${dangerBtn}'			
+			</when>
+			<!-- 검색어와 기간 검색 -->
+			<when test="word != '' and dangerBtn = '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientNameKO LIKE '%${word}%' AND writeDate <![CDATA[>]]>= ${searchStartDate} AND writeDate <![CDATA[<]]>= ${searchEndDate}		
+			</when>
+			<!-- 위험도와 기간 검색 -->
+			<when test="word = '' and dangerBtn != '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientDanger LIKE '${dangerBtn}' AND writeDate <![CDATA[>]]>= ${searchStartDate} AND writeDate <![CDATA[<]]>= ${searchEndDate}			
+			</when>
+			<!-- 모두 검색 -->
+			<when test="word = '' and dangerBtn != '' and searchStartDate != '' and searchEndDate != ''">
+				AND ingredientNameKO LIKE '%${word}%' AND ingredientDanger LIKE '${dangerBtn}' AND writeDate <![CDATA[>]]>= ${searchStartDate} AND writeDate <![CDATA[<]]>= ${searchEndDate}			
+			</when>
+		</choose>			
+		AND
+			useYN = 'Y'
+		ORDER BY
+			ingredientIDX DESC 
+		
+	</select>
+
+
+	
+</mapper>

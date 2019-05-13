@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.logoImg{margin:170px 0 100px 0; width: 320px;}
+.nowVer{color:#939598; font-family: NotoSansCJKkr-Medium; font-size: 50px; margin: 0 0 20px 0;}
+.newVer{color:#5184FF; font-family: NotoSansCJKkr-Medium; font-size: 50px;}
+
+/*updateBtn*/
+.updateBtn{display:inline-block; width:84%; height:150px; background-color:#5184FF; margin:100px 0 0 0; line-height:150px;}
+.updateText{display:inline-block;color:#fff;}
+

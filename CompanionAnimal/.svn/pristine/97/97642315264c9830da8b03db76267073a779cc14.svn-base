@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/*petInfo*/
+.petInfo{float:left; width:100%; text-align:center; }
+.petInfoArea{display:inline-block; width:84%;border-bottom:1px solid black;padding:45px 0 45px 0; }
+.iconUser{float:left; margin:20px 20px 0 0;}
+.infoText{float:left; text-align:left; margin:10px 0 0 0;}
+.iconBmrk{float:right; margin: 45px 0 0 0; width:80px;}
+.petName{font-size:50px;}
+.petType{font-size:40px;}
+.reviewCnt{font-size:40px;}
+
+/*productInfo*/
+.productInfo{float:left; width:100%; text-align:center;}
+.productInfoArea{display:inline-block; width:78%; margin:35px 0 0 0; }
+.iconProduct{float:left; width:100px; height:160px; margin:20px 20px 0 0; border:1px solid black;}
+.productInfoText{float:left; text-align:left; margin:10px 0 0 0;}
+.productName{}
+.productType{}
+.reviewGradeImg{float:left;margin:0 5px 0 0}
+.reviewGrade{float:left;}
+
+/*reviewInfo*/
+.reviewInfo{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewInfoArea{display:inline-block; width:78%; margin:25px 0 0 0; }
+.reviewGoodImg{float:left; width:100px; }
+.reviewGoodText{float:left; display:inline-block; margin:25px 0 0 50px; font-family: NotoSansCJKkr-DemiLight;}
+.reviewBedImg{float:left; width:100px;}
+.reviewBedText{float:left; display:inline-block; margin:25px 0 0 50px; font-family: NotoSansCJKkr-DemiLight;}
+.reviewTipImg{float:left; width:100px;}
+.reviewTipText{float:left; display:inline-block;margin:25px 0 0 50px; font-family: NotoSansCJKkr-DemiLight;}
+
+/*reviewImgWrap*/
+.reviewImgWrap{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewImgArea{display:inline-block; width:84%; margin:25px 0 0 0; }
+.reviewImgFt{float:left; width:200px; height: 200px; border:1px solid black; margin:0 35px 0 35px;}
+.reviewImg{float:left; width:200px; height: 200px; border:1px solid black; margin: 0 35px 0 0;}

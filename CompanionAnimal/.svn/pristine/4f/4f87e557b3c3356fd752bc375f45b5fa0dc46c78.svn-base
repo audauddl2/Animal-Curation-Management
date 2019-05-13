@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="codeMgt">
+
+
+	<!-- 분류별 Query -->
+	<select id="getProductCategoryList" parameterType="int" resultType="codeMgtVO">
+		SELECT 
+			CodeIdx, CodeName
+		FROM t_codemgt
+		WHERE flag = 'CS' AND parentsCode = ${productCategory}
+		ORDER BY parentsCode ASC, codeIdx ASC
+	</select>
+	
+	<!-- 위험도 목록 codeMgt.getDangerCodeList -->
+	<select id="getDangerCodeList" parameterType="CodeMgtVO" resultType="CodeMgtVO">
+  		SELECT *
+  		FROM t_codemgt
+  		WHERE flag = 'DA'
+	</select>
+	
+	<!-- 용도 목록 codeMgt.getDangerCodeList -->
+	<select id="getUseCodeList" parameterType="CodeMgtVO" resultType="CodeMgtVO">
+  		SELECT *
+  		FROM t_codemgt
+  		WHERE flag = 'IN'
+	</select>
+	
+	<!-- 코드 등록
+	....flag.... 
+	위험도:	DA
+	용도:		IN
+	브랜드:	BR
+	분류 대:	CB
+	분류 소:	CS
+	-->
+	<insert id="CodeInsert" parameterType="CodeMgtVO">
+		INSERT INTO
+			t_codemgt(
+				CodeName,
+				flag,
+				useYN,
+				writer,
+				writeDate
+			)VALUES(
+				'#{CodeName}',
+				'#{flag}',
+				'Y',
+				'admin',
+				'now()'
+			)					
+	</insert>
+	
+	<!-- 등록한 성분에서 위험도 및 등록수 조회 -->
+	 <select id="getDangerCodeCntList" parameterType="CodeMgtVO" resultType="CodeMgtVO">
+	 SELECT 
+	 	ingredientDanger, count(*) 
+	 AS 
+	 	dangerCnt 
+	 FROM 
+	 	t_ingredientRST 
+	 WHERE 
+	 	ingredientIDX 
+	 AND 
+	 	useYN = 'Y' 
+	 GROUP BY 
+	 	ingredientDanger 
+	 ORDER BY
+	 	ingredientDanger DESC
+	 </select> 
+
+
+	<!-- 등록한 성분에서 용도 및 등록수 조회 -->
+	<select id="getUseCodeCntList" parameterType="CodeMgtVO" resultType="CodeMgtVO">
+	SELECT
+		ingredientUse, count(*)
+	AS
+		useCnt
+	FROM
+		t_ingredientRST
+	WHERE
+		ingredientIDX
+	AND
+		useYN = 'Y'
+	GROUP BY
+		ingredientUse
+	ORDER BY
+		ingredientUse DESC
+	</select> 
+	
+	
+</mapper>

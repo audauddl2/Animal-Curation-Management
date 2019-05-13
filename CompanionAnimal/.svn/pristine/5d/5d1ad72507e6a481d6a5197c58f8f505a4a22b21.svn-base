@@ -1,0 +1,39 @@
+package com.owth.service.bbs;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.owth.dao.bbs.NoticeDAO;
+import com.owth.vo.bbs.NoticeVO;
+
+@Service
+public class NoticeService {
+	
+	@Autowired
+	NoticeDAO noticeDAO;
+	
+	/**
+	 * 게시글 목록
+	 * @return 게시글 목록
+	 */
+	public List<NoticeVO> getNoticeList(NoticeVO noticeVO) {
+		System.out.println("NoticeService List Start =================================================");
+		
+		return noticeDAO.getNoticeList(noticeVO);
+	}
+	
+	/**
+	 * 게시글 등록
+	 * @return 등록 결과
+	 */
+	public int getNoticeInsert(NoticeVO noticeVO) {
+		
+		System.out.println("noticeService Insert Start =================================================");
+		System.out.println("NoticeVO" + noticeVO);
+		
+		return noticeDAO.getNoticeInsert(noticeVO);
+	}
+
+}

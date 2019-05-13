@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+
+/*productInfo*/
+.productInfo{float:left; width:100%; text-align:center;}
+.productInfoArea{display:inline-block; width:84%; padding:35px 0 35px 0; border-bottom:1px solid black;}
+.iconProduct{float:left; width:100px; height:160px; margin:20px 20px 0 0; border:1px solid black;}
+.productInfoText{float:left; text-align:left; margin:10px 0 0 0;}
+.productName{margin:30px 0 0 0}
+.productType{}
+
+/*gradeBox*/
+.gradeWrap{float:left; width:100%; text-align:center;}
+.gradeBox{display:inline-block; width:84%; padding:35px 0 35px 0; border-bottom:1px solid black;}
+.gradeText{}
+.reviewGradeImg{display:inline-block; width:85px; margin:0 5px 0 0}
+
+/*featureInfo*/
+
+.featureInfo{float:left; width:100%; text-align:center;}
+.featureInfoArea{display:inline-block; width:84%; padding:35px 0 35px 0; border-bottom:1px solid black;}
+.iconTextArea{display:inline-block; width:100%;}
+.iconFeature{float:left; width:100px;}
+.featureText{float:left; display:inline-block; margin:25px 0 0 25px}
+.barText{display:inline-block; font-size:35px; float:left; margin:0 50px 0 0; font-family: NotoSansCJKkr-DemiLight;}
+.barPercent{display:inline-block; font-size:35px; float:right; margin:0 20px 20px 0;}
+
+
+/*bar*/
+.barArea{float:left;width:100%;}
+.barWrap{float:left;width:73%;height:22px;overflow:hidden;border-radius:15px; margin:16px 0 0 0;}
+.barOne{float:left;width:60%;height:22px; background-color:#5184FF;}
+.barTwo{float:left;width:40%;height:22px; background-color:#D1D3D4;}
+
+
+/*reviewInfo*/
+.reviewInfo{display:inline-block; width:84%; padding: 45px 0 45px 0; border-bottom:1px solid black;}
+.reviewInfoArea{display:inline-block; width:100%; padding:45px 0 45px 0; }
+.reviewGoodImg{float:left; width:100px; }
+.reviewGoodText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewBedImg{float:left; width:100px;}
+.reviewBedText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewTipImg{float:left; width:100px;}
+.reviewTipText{float:left; display:inline-block; margin:25px 0 0 25px}
+.iconWrite{float:right; width:75px; margin: 45px 0 0 0;}
+
+.reviewInput{width:100%;}
+.reviewInputText{float:left; width:100%; height:80px; line-height:80px; padding:0 0 0 50px;}
+
+
+.iconArea{display:inline-block; width:100%;}
+.iconPicture{float:left; width:100px;}
+.pictureText{float:left; display:inline-block; margin:25px 0 0 25px}
+
+/*addBtn*/
+.addBtn{display:inline-block; width:100%; height:150px; background-color:#5184FF; margin:50px 0 0 0; line-height:150px;}
+.addText{display:inline-block; color:#fff; }
+
+/*reviewImgWrap*/
+.reviewImgWrap{float:left; width:100%;padding:45px 0 45px 0;}
+.reviewImgArea{display:inline-block; width:84%; }
+.reviewImgMN{float:left; width:200px; height: 200px; border:1px solid black; margin:0 0 0 0;}
+.reviewImg{float:left; width:200px; height: 200px; border:1px solid black; margin: 0 48px 0 0;}
+
+

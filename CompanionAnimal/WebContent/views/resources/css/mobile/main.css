@@ -1,0 +1,37 @@
+@charset "utf-8";
+#hdContainer {position: fixed; z-index:1; width: 1170px; height: 300px; background-color:#fff; overflow:hidden;}
+.header{width:100%;background-color:#FFF; text-align:center;line-height:200px; border-bottom:none;}
+.showArea{position:absolute; width:100%; margin:310px 0 240px 0; text-align:center;}
+.logoArea{position: relative;float: left;width:100%;}
+.logoArea img{display:inline-block;	width: 240px; margin:100px 0 0 0;}
+.innerbox{text-align: center;}
+
+.seachpBox{	display: inline-block;width: 88%;margin: 10% 0 2% 0;border-bottom: 1px solid #444444;height: 100px;}
+.seachpBox img{	width: 5%;margin-right: 10px;}
+.searchText{border-bottom: none;height: 90px;font-size: 45px;width: 90%;}
+
+.gapBox{display: inline-block; width: 100%;height: 30px;background-color:#F1F2F2;border-top: 1px solid #444444;border-bottom: 1px solid #444444;}
+
+.ad{float:left; width:100%; height: 220px;background-color: #444444;}
+.event{float:left; height: 700px;background-color: #444444;}
+.menu{width:100%;}
+.box{float: left;width: 25%}
+.box img{float: left;width: 99%}
+
+.popularA{float:left; width:100%;}
+.popularB{float:left; width:100%;}
+
+.titleBox{height: 150px;border-bottom:1px solid #444444;}
+.titleBox p{font-size: 50px;font-family: 'NotoSansCJKkr-Medium';display:inline-block;line-height:150px;	}
+
+.nextBtn {position: absolute; top:815px; right:0; width:150px;height:150px;}
+.nextBtn img{margin-top: 48px;width: 18%;}
+
+.product{height: 210px;	border-bottom:1px solid #444444;position: relative;	}
+.productImg{position: relative;left: 80px;top:30px;	width: 150px;height: 150px;	background-color: #444444;}
+.productinfo{position: absolute;left: 270px;top: 50px;float: left;}
+
+.brand{font-size: 40px;	color: #939598;font-family: 'NotoSansCJKkr-DemiLight';float: left;height: 45px;}
+.productName{font-size: 45px;}
+
+.borderBar{float:left; width:1px; height:55px; background-color:black; margin: 100px 0 0 0;}

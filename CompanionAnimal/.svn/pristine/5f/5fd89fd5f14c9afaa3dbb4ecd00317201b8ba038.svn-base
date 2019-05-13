@@ -1,0 +1,34 @@
+package com.owth.dao.bbs;
+
+import java.util.List;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import com.owth.vo.bbs.NoticeVO;
+
+
+@Repository
+public class NoticeDAO extends SqlSessionDaoSupport {
+	
+	/**
+	 * 게시글 목록 출력
+	 * @return 게시글 목록
+	 */
+	public List<NoticeVO> getNoticeList(NoticeVO noticeVO) {
+		
+		//System.out.println("ColumnDAO Start =================================================");
+		
+		return getSqlSession().selectList("Notice.getNoticeList", noticeVO);
+	}
+	
+	/**
+	 * 게시글 등록
+	 * @return 등록 결과
+	 */
+	public int getNoticeInsert(NoticeVO noticeVO) {
+		
+		return getSqlSession().insert("Notice.getNoticeInsert", noticeVO);
+	}
+
+}

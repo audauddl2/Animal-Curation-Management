@@ -1,0 +1,245 @@
+package com.owth.controller.product;
+
+import java.io.Writer;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kpu.jung.framework.exception.ServiceException;
+import com.kpu.jung.framework.support.web.paging.Pager;
+import com.kpu.jung.framework.support.web.paging.SimplePagerImpl;
+import com.owth.common.RtnMessageUtil;
+import com.owth.service.codeMgt.CodeMgtService;
+import com.owth.service.product.ProductService;
+import com.owth.vo.CodeMgt.CodeMgtVO;
+import com.owth.vo.product.ProductVO;
+
+@Controller
+public class productController {
+
+	/** The logger. */
+	protected Log logger = LogFactory.getLog(this.getClass());
+	
+	@Autowired
+	private ProductService productService;							// 제품  Service
+	
+	@Autowired
+	private CodeMgtService codeMgtService;							// 코드 Service
+
+	
+	/** Object. */
+	private RtnMessageUtil rtnMessageUtil = new RtnMessageUtil();
+	
+	private final int PRODUCT_USE = 1;								// 제품 분류 - 용도
+	private final int PRODUCT_MATERIAL = 2;							// 제품 분류 - 원료
+	private final int PRODUCT_FUNCTION = 3;							// 제품 분류 - 기능
+	private final int PRODUCT_KIND = 4;								// 제품 분류 - 종류
+	
+	
+	@RequestMapping("/adm/productList")
+	public String getProductList(ModelMap modelMap, @ModelAttribute ProductVO productVo, HttpServletRequest request, Writer out) throws ServiceException{
+
+		// Login Check
+//		MemberLoginVO user = (MemberLoginVO)admLoginUtil.chkLogin(request);
+		
+//		if(user != null){
+			try{
+				/*
+				 * mySQL에서 Paging 처리하기 위해서
+				 * ex1) limit 0, 10
+				 * ex2) limit 10, 10
+				 */
+				if ( productVo.getPageNo() > 1 ) {
+					productVo.setStartPageNo( (productVo.getPageNo() - 1) * 10 );
+				}
+				
+				ProductVO productVO = new ProductVO();											//상품 생성자
+				List<ProductVO> productList = productService.getProductList(productVo);			//상품 List 
+				
+				logger.debug("\n ========================================================================= \n");
+
+				int totalRows = productService.getProductTotalCount(productVo);						// 상품 총 갯수
+				int nodataCnt = 0;
+
+				productVo.setPagingYn("Y");													// paging 처리 ㅇ부
+
+				/*
+				 * Paging 처리
+				 * Paging Block수(blockPerPage) 및 페이지당 Row 수(rowPerPage)는
+				 * 별도 Setting 없을 시 default(10, 10) 설정.
+				 */
+				Pager pager = SimplePagerImpl.newInstance(productVo.getPageNo());
+				pager.setTotalCount(totalRows);	/* 총 Row 수 */
+				//pager.setBlockPerPage(10);
+				//pager.setRowPerPage(10);
+		
+				/* 조회결과 Object return bbsList
+				 * 검색값 Object return bbsVO
+				 * */
+	
+				modelMap.addAttribute("condition", productVo);
+				modelMap.addAttribute("productList", productList);
+				modelMap.addAttribute("pager", pager);
+				modelMap.addAttribute("totalRows", totalRows);
+				
+				return "/product/productList";
+			}catch (Exception e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	        }
+/*			
+		} else {
+			try{
+				out.write(admLoginUtil.getLogoutMessage());				
+			}catch(IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            throw new ApplicationException("io.StreamError", e);
+			}				
+			return null;
+		}
+*/		
+		return null;
+	}
+	
+	@RequestMapping("/adm/productWrite")
+	public String getProductCreate(ModelMap modelMap, @ModelAttribute ProductVO productVo, HttpServletRequest request, Writer out) throws ServiceException{
+
+		System.out.println("getProductCreate Start =========================================================================================");
+		
+		// Login Check
+//		MemberLoginVO user = (MemberLoginVO)admLoginUtil.chkLogin(request);
+		
+//		if(user != null){
+
+/*		
+			MajorVO majorVo = new MajorVO();										// 전공 구번 설정
+			List<MajorVO> majorList = majorService.getMajorList(majorVo);			//전공구분 List 
+	
+			modelMap.addAttribute("majorList", majorList);							// modelMap에 추가
+*/			
+		 	modelMap.addAttribute("condition", productVo);
+
+		 	
+		 	/* 상품 등록시 분류 해당되는 코드 loop */
+			List<CodeMgtVO> productUseList = codeMgtService.getProductCategoryList(PRODUCT_USE);					// 분류 - 용도 List
+			List<CodeMgtVO> productMaterialList = codeMgtService.getProductCategoryList(PRODUCT_MATERIAL);			// 분류 - 원료 List
+			List<CodeMgtVO> productFunctionList = codeMgtService.getProductCategoryList(PRODUCT_FUNCTION);			// 분류 - 기능 List
+			List<CodeMgtVO> productKindList = codeMgtService.getProductCategoryList(PRODUCT_KIND);					// 분류 - 종류 List
+			
+			modelMap.addAttribute("productUseList", productUseList);
+			modelMap.addAttribute("productMaterialList", productMaterialList);
+			modelMap.addAttribute("productFunctionList", productFunctionList);
+			modelMap.addAttribute("productKindList", productKindList);
+		 	
+		 	if ( productVo.getProductIDX() > 0 ) {
+				try{
+//					ProductVO productVO = productService.getDetail(productVo);
+//					modelMap.addAttribute("productDetail", productVO);
+					
+					return "/product/productWrite";
+						
+				}catch (Exception e) {
+		            if (logger.isErrorEnabled()) {
+		                logger.error(e.getMessage(), e);
+		            }
+		        }
+			} else {
+
+				System.out.println("getProductCreate End =========================================================================================");
+	
+				return "/product/productWrite";
+			}
+/*			
+		} else {
+			try{
+				out.write(admLoginUtil.getLogoutMessage());				
+			}catch(IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            throw new ApplicationException("io.StreamError", e);
+			}				
+			return null;
+		}
+*/			
+		return null;
+	}
+	
+	@RequestMapping("/adm/productSave")
+	public void getProductSave(ModelMap modelMap, @ModelAttribute ProductVO productVo, HttpServletRequest request, Writer out) {
+		
+		
+		System.out.println("Product Save Function Start ====================================================================================");
+		
+		System.out.println(productVo.toString());
+
+		System.out.println("Product Save Function End ====================================================================================");
+
+		// Login Check
+	//	MemberLoginVO user = (MemberLoginVO)admLoginUtil.chkLogin(request);
+		
+	//	if(user != null){
+	
+	/*		
+			MajorVO majorVo = new MajorVO();										// 전공 구번 설정
+			List<MajorVO> majorList = majorService.getMajorList(majorVo);			//전공구분 List 
+	
+			modelMap.addAttribute("majorList", majorList);							// modelMap에 추가
+	*/			
+		
+	//	if(user != null){
+		/*
+			try {
+				if(productVo.getProductIDX() > 0) {
+					
+					logger.debug("\n ================================================================== \n");
+					logger.debug("\n update dicVo : " + productVo + "\n");
+					logger.debug("\n ================================================================== \n");
+					
+					
+					// 전공용어사전 수정
+					if ( productService.getProductUpdate(productVo) > 0) {
+						rtnMessageUtil.returnResult("success","수정이 완료되었습니다.","updateProduct()",out);
+					}else{
+						rtnMessageUtil.returnResult("Error","","updateProduct",out);
+					}
+				}else{
+					// 전공 용어사전 입력
+					productService.getProductInsert(productVo);
+	
+					rtnMessageUtil.returnResult("success","저장이 완료되었습니다.","insertProduct()",out);
+				}
+			} catch (Exception e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            rtnMessageUtil.returnResult("error","","insertDic()",out);
+	        }
+		*/
+	/*		
+		} else {								// login session 이 없는 경우
+			try{
+				out.write(admLoginUtil.getLogoutMessage());				
+			}catch(IOException e) {
+	            if (logger.isErrorEnabled()) {
+	                logger.error(e.getMessage(), e);
+	            }
+	            throw new ApplicationException("io.StreamError", e);
+			}			
+		}
+	*/
+	}
+
+}
+

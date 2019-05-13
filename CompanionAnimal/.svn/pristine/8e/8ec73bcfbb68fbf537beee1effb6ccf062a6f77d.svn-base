@@ -1,0 +1,77 @@
+package com.owth.dao.bbs;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.ModelMap;
+
+import com.owth.vo.bbs.ColumnVO;
+
+@Repository
+public class ColumnDAO extends SqlSessionDaoSupport  {
+	
+	/**
+	 * 게시글 목록 출력
+	 * @return 게시글 목록
+	 */
+	public List<ColumnVO> getColumnList(ColumnVO columnVO) {
+		
+		//System.out.println("ColumnDAO Start =================================================");
+		
+		return getSqlSession().selectList("Column.getColumnList", columnVO);
+	}
+	/**
+	 * 게시글 등록
+	 * @return 등록 결과
+	 */
+	public int getColumnInsert(ColumnVO columnVO) {
+		System.out.println("ColumnDAO Start =================================================");
+		return getSqlSession().insert("Column.getColumnInsert", columnVO);
+	}
+	/**
+	 * 게시글 조회수
+	 * @return 조회수 증가
+	 */
+	public int getColumnViewCnt(ColumnVO columnVO) {
+		return getSqlSession().update("Column.getColumnViewCnt",columnVO);
+	}
+	/**
+	 * 게시글 상세 조회
+	 * @return 해당 게시글 내용
+	 */
+	public ColumnVO getColumnDetail(ColumnVO columnVO) {
+	
+		return getSqlSession().selectOne("Column.getColumnDetail", columnVO);
+	}
+	
+	/**
+	 * 게시글 수정
+	 * @return 수정 결과
+	 */
+	public int getColumnUpdate(ColumnVO columnVO)
+	{
+		return getSqlSession().update("Column.getColumnUpdate", columnVO);
+	}
+	
+	
+	/**
+	 * 게시글 삭제
+	 * @return 삭제 결과
+	 */
+	public int getColumnDelete(ColumnVO columnVO)
+	{
+		return getSqlSession().delete("Column.getColumnDelete", columnVO);
+	}
+	
+	/**
+	 * 파일 업로드
+	 * @return 업로드 결과
+	 */
+	public void insertFile(Map<String, Object> map) throws Exception {
+		System.out.println("ColumnDAO Start =================================================");
+		getSqlSession().insert("Column.insertFile",map);
+	}
+
+}

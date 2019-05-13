@@ -1,0 +1,239 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Insert title here</title>
+
+<style type="text/css">
+	.searchBox{border:none}
+	.searchBox tbody th{font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;}
+	.searchBox tbody td{border:none;}
+	
+	.searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+	.searchDate:after{display:block;clear:both;content:''}
+	.searchDate li{position:relative;float:left;margin:0 7px 0 0}
+	.searchDate li .chkbox2{display:block;text-align:center}
+	.searchDate li .chkbox2 input{position:absolute;z-index:-1}
+	.searchDate li .chkbox2 label{display:block;width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
+	.searchDate li .chkbox2.on label{background:#ec6a6a}
+	
+	.searchRisk{overflow:hidden;margin-bottom:10px;*zoom:1}
+	.searchRisk:after{display:block;clear:both;content:''}
+	.searchRisk li{position:relative;float:left;margin:0 7px 0 0}
+	.searchRisk li .chkbox{display:block;text-align:center}
+	.searchRisk li .chkbox input{position:absolute;z-index:-1}
+	.searchRisk li .chkbox label{display:block;width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
+	.searchRisk li .chkbox.on label{background:#ec6a6a}
+	
+	.demi{display:inline-block;margin:0 1px;vertical-align:middle}
+	.inpType{padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb}
+		
+</style>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/views/resources/css/common.css"> 
+<link rel="stylesheet" type="text/css" href="/views/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/views/resources/css/nav.css"> 
+<link rel="stylesheet" type="text/css" href="/views/resources/css/contents.css">
+
+<!-- JS -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+
+<script src="/views/resources/js/common/datePicker.js"></script>
+
+
+<script>
+//Search클릭 옵션
+$(document).ready(function() {
+	$(".searchRisk").schRisk();
+});
+
+jQuery.fn.schRisk = function(){
+	var $obj = $(this);
+	var $chk = $obj.find("input[type=radio]");
+	$chk.click(function(){                
+		$('input:not(:checked)').parent(".chkbox").removeClass("on");
+		$('input:checked').parent(".chkbox").addClass("on");                    
+	});
+};
+
+
+
+</script>
+</head>
+<body>
+
+	<div class="InnerWrap">	
+		<!-- 내용 -->
+		<div class="Content">
+			<form class="InnerContent" action="/ingredientRST/ingredientSearch" method="post">
+			
+				<!-- 테이블 영역 1 -->
+				<div class="InnerTable1">
+					<p style="font-size:20px;font-weight:bold;text-align:left;vertical-align:top;border:none; width:98%; margin:10px;">성분 조회/수정</p>
+				
+					<!-- 검색영역1  -->
+					<div class="serchArea" style="position:relative; float:left; width:98%; height:30px; margin:5px 10px 5px 10px;">
+					
+						<p style="position:relative; float:left; width:50px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;">검색어</p>
+						<input name="word" style="padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb; position:relative; float:left; width:500px;"type="text" placeholder="내용을 입력해 주세요">
+						
+						<p style="position:relative; float:left; margin:0 0 0 10px;">등급별 검색</p> 
+						 
+						<ul class="searchRisk" style="position:relative; float:left; margin:0 0 0 10px;" >
+							<li>
+								<span class="chkbox">
+									<input type="radio" name="dangerBtn" value="저위험" id="riskLow" onclick=""/>
+									<label for="riskLow">용도별</label>
+								</span>
+							</li>
+							<li>
+								<span class="chkbox">
+									<input type="radio" name="dangerBtn" value="위험" id="risk" onclick=""/>
+									<label for="risk">기능별</label>
+								</span>
+							</li>
+							<li>
+								<span class="chkbox">
+									<input type="radio" name="dangerBtn" value="고위험" id="riskHigh" onclick=""/>
+									<label for="riskHigh">원료별</label>
+								</span>
+							</li>
+							<li>
+								<span class="chkbox">
+									<input type="radio" name="dangerBtn" value="알수없음" id="riskNone" onclick=""/>
+									<label for="riskNone">종류별</label>
+								</span>
+							</li>
+						</ul>							
+					</div>
+					
+					<!-- 검색영역2  -->
+					<div style="position:relative; float:left; width:98%; height:30px; margin:10px;">
+						<table class="searchBox">
+							<tbody>
+								<tr>
+									<th>기간</th>
+									<td>
+										<div style="position:relative; float:left; margin:0 0 0 10px;">
+											<!-- 시작일 -->
+											<span class="dset">
+												<input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" value="${searchStartDate}" placeholder="기간을 선택하세요">
+												
+											</span>
+											<span class="demi">~</span>
+											<!-- 종료일 -->
+											<span class="dset">
+												<input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" value="${searchEndDate}" placeholder="기간을 선택하세요">
+												
+											</span>
+										</div>    
+										<ul class="searchDate" style="position:relative; float:left; margin:0 0 0 10px;" >
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+													<label for="dateType1">오늘</label>
+												</span>
+											</li>
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
+													<label for="dateType2">1주</label>
+												</span>
+											</li>
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
+													<label for="dateType3">1개월</label>
+												</span>
+											</li>
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
+													<label for="dateType4">3개월</label>
+												</span>
+											</li>
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
+													<label for="dateType5">6개월</label>
+												</span>
+											</li>
+											<li>
+												<span class="chkbox2">
+													<input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('12m')"/>
+													<label for="dateType7">1년</label>
+												</span>
+											</li>
+										</ul>
+									</td>
+								</tr>
+							<tbody>
+						</table>
+					</div>
+					
+					<hr style="clear:both;">
+						
+					<!-- 검색버튼  -->	
+					<div style="text-align:center; margin:10px 15px 0 0;">
+						<input class="cursor" type="submit" value="검색" style="width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6; margin:0 10px 0 0;">
+						<input class="cursor" type="reset" value="초기화" style="width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6;">
+					</div>
+					
+				</div>
+				
+				<!-- 테이블 영역2 -->
+				<div class="InnerTable2" style="width:100%, height:200px; overlfow:auto;">
+			   		<table style="width:100%; cellspacing:0; cellpadding:0;">
+			   			<thead style="color:#666; text-align:center;">
+			   				<tr>
+			   					<th>번호</th>
+						        <th>상품명</th>
+						        <th>이미지</th>
+						        <th>브랜드</th>
+						        <th>성분공개</th>
+						        <th>제품 성분</th>
+						        <th>성분 비율</th>
+						        <th>특징</th>
+						        <th>분류</th>
+						        <th>등급</th>
+						        <th>수정</th>
+						        <th>삭제</th>
+					        </tr>
+				        </thead>
+				        <tbody style="color:#666; text-align:center;">			
+					        <c:choose>
+	                			<c:when test="${fn:length(getIngredientList) > 0}" > 	        	
+				        			<c:forEach items="${getIngredientList}" var="getList" varStatus="status">
+			        					<tr>
+							        		<td>${status.count}</td>					        		
+							        		<td>${getList.ingredientNameKo}(${getList.ingredientNameEn})</td>
+							        		<td>${getList.ingredientUse}</td>
+							        		<td>${getList.ingredientDanger}</td>
+							        		<td>${getList.ingredientCarcinogenYN}(${getList.ingredientCarcinogenText})</td>
+							        		<td>${getList.ingredientCareYN}(${getList.ingredientCareText})</td>
+							        		<td>${getList.ingredientPurpose}</td>
+							        		<td>${getList.ingredientFunction}</td>
+							        		<td>${getList.writeDate}</td>
+							        		<td></td>								
+							        		<td></td>	        	
+							        	</tr>
+				        		
+				        			</c:forEach>
+				        		</c:when>
+				        	</c:choose>	
+				        </tbody>
+				    </table>					    
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

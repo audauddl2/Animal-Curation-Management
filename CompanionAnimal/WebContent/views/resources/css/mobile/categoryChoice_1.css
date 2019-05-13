@@ -1,0 +1,15 @@
+@charset "utf-8";
+/*btnWrap*/
+.idTextWrap{float:left; width:100%; height:100px;line-height:100px; background-color:#F1F2F2; border-bottom:1px solid black; }
+.idTextArea{display:inline-block; width: 90%;}
+.idText{display:inline-block; float:left;}
+
+.textColor{color:#5184FF;}
+
+/*categoryInfo*/
+.categoryInfo{float:left; width:100%; text-align:center; padding:45px 0 45px 0; border-bottom:1px solid black;}
+.categoryArea{display:inline-block; width:90%; }
+.categoryText{text-align:left;}
+
+.addBtn{display:inline-block; width:90%; height:150px; background-color:#5184FF; margin:50px 0 0 0; line-height:150px;}
+.addText{display:inline-block; color:#fff; }

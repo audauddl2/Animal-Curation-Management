@@ -1,0 +1,72 @@
+
+package com.owth.vo.bbs;
+
+public class NoticeVO {
+	
+	int noticeIDX;			//공지글 번호
+	String noticeTitle;		//공지 제목
+	String noticeContent;	//공지 내용
+	String writer;			//공지 작성자
+	String writeDate;		//공지 날짜
+	String modifier;		//수정자
+	String modifyDate;		//수정날짜
+	int noticeviewCnt;		//공지 조회수
+	String useYN;			//사용 여부
+	
+	
+	public int getNoticeIDX() {
+		return noticeIDX;
+	}
+	public void setNoticeIDX(int noticeIDX) {
+		this.noticeIDX = noticeIDX;
+	}
+	public String getNoticeTitle() {
+		return noticeTitle;
+	}
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
+	}
+	public String getNoticeContent() {
+		return noticeContent;
+	}
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	public String getModifier() {
+		return modifier;
+	}
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
+	public String getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public int getNoticeviewCnt() {
+		return noticeviewCnt;
+	}
+	public void setNoticeviewCnt(int noticeviewCnt) {
+		this.noticeviewCnt = noticeviewCnt;
+	}
+	public String getUseYN() {
+		return useYN;
+	}
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+	
+}

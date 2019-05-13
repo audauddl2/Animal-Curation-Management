@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+
+		<typeAlias alias="ColumnVO"  type="com.owth.vo.bbs.ColumnVO"/>
+		<typeAlias alias="NoticeVO"  type="com.owth.vo.bbs.NoticeVO"/>
+		<typeAlias alias="ingredientRSTVO"  type="com.owth.vo.ingredientRST.IngredientRSTVO"/>
+		<typeAlias alias="codeManagementVO"  type="com.owth.vo.codeManagement.CodeManagementVO"/>
+		<typeAlias alias="reviewVO"  type="com.owth.vo.review.ReviewVO"/>
+		<typeAlias alias="commentVO"  type="com.owth.vo.comment.CommentVO"/>
+
+	</typeAliases>
+	
+	<mappers>
+
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/Column.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/Notice.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/ingredientRST.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/codeManagement.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/review.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/comment.xml" />
+		
+	</mappers>
+
+</configuration>

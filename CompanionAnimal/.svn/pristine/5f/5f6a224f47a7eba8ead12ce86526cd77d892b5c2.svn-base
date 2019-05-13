@@ -1,0 +1,150 @@
+package com.owth.controller.codeMgt;
+
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kpu.jung.framework.exception.ServiceException;
+import com.owth.common.RtnMessageUtil;
+import com.owth.service.codeMgt.CodeMgtService;
+import com.owth.vo.Bbsmgt.BbsVO;
+import com.owth.vo.CodeMgt.CodeMgtVO;
+
+@Controller
+public class CodeMgtController {
+
+	/** The logger. */
+	protected Log logger = LogFactory.getLog(this.getClass());
+	
+	/** Object. */
+	private RtnMessageUtil rtnMessageUtil = new RtnMessageUtil();
+
+	@Autowired
+	CodeMgtService codeMgtService;
+
+	
+	//제품 코드 관리 
+	@RequestMapping("/codeManagement/productCodeManagement")
+	public String productCodeManagementView() {
+		
+		return "/codeManagement/productCodeManagement";
+	}
+	/*성분 코드 관리
+	@RequestMapping("/codeManagement/ingredientCodeManagement")
+	public String ingredientCodeManagementView() {
+		
+		return "/codeManagement/ingredientCodeManagement";
+	}
+	*/
+	//게시글 작성 action
+	@RequestMapping("/codeWrite")
+	public String getBbsInsert(RedirectAttributes rttr, ModelMap modelMap, Map<String,Object> map, @ModelAttribute CodeMgtVO CodeMgtVO, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception{
+
+		System.out.println("CodeMgtController Start =================================================");
+		String flag=""; //위험도 DA, 용도 IN, 분류 CB CS, 브랜드 BR
+
+		try{
+			flag = request.getParameter("flag");
+			CodeMgtVO.setFlag(flag);
+			codeMgtService.CodeInsert(CodeMgtVO);
+			System.out.println("등록 성공");
+
+			return null;
+
+		}catch (Exception e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+			}
+		}
+
+		return null;
+	}
+	
+	
+
+	//코드 관리 ( 성분 코드 - 위험도, 용도, 등록수 리스트)
+	@RequestMapping("/codeManagement/ingredientCodeManagement")
+	 public String getCodeList(ModelMap modelMap, @ModelAttribute CodeMgtVO CodeMgtVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+			System.out.println("getDangerCodeList Call Start ===============================================================");
+		try {
+			
+			//위험도, 용도 리스트 
+			List<CodeMgtVO> getDangerCodeList = codeMgtService.getDangerCodeList(CodeMgtVO);
+			List<CodeMgtVO> getUseCodeList = codeMgtService.getUseCodeList(CodeMgtVO); 
+
+			System.out.println("getDangerCodeList : " + getDangerCodeList.size());
+			System.out.println("getUseCodeList : " + getUseCodeList.size());
+			
+			List<CodeMgtVO> getDangerCodeCntList = codeMgtService.getDangerCodeCntList(CodeMgtVO);
+			List<CodeMgtVO> getUseCodeCntList = codeMgtService.getUseCodeCntList(CodeMgtVO);
+
+			modelMap.addAttribute("getDangerCodeCntList", getDangerCodeCntList);
+			modelMap.addAttribute("getUseCodeCntList", getUseCodeCntList);
+			//위험도, 용도 리스트 
+			modelMap.addAttribute("getDangerCodeList", getDangerCodeList);
+			modelMap.addAttribute("getUseCodeList", getUseCodeList);
+			
+			System.out.println("getDangerCodeList Call End ===============================================================");
+			return "/codeManagement/ingredientCodeManagement";	
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+				
+	}
+	
+		/*
+
+	//위험도 수정
+	@RequestMapping("/codeManagement/dangerCodeUpdateAction")
+	 public String dangerCodeUpdateAction(ModelMap modelMap, @ModelAttribute CodeMgtVO CodeMgtVO, HttpServletRequest request, Writer out) throws ServiceException{
+
+		try{			
+			codeMgtService.dangerCodeUpdate(CodeMgtVO);
+			
+			return "/codeManagement/ingredientCodeManagement";
+				
+		}catch (Exception e) {
+			if (logger.isErrorEnabled()) {
+				logger.error(e.getMessage(), e);
+			}
+		}
+		
+		return null;
+			
+	}
+	*/
+	/*ingredientRegister에서 위험도, 용도 리스트를 가져오기 위해 사용
+	@RequestMapping("/codeManagement/ingredient")
+	public Map<String, Object> getDangerCodeList(ModelMap modelMap, @ModelAttribute CodeMgtVO CodeMgtVO, HttpServletRequest request, Writer out) throws ServiceException{
+
+		List<CodeMgtVO> getDangerCodeCntList = codeMgtService.getDangerCodeCntList(CodeMgtVO);
+		List<CodeMgtVO> getUseCodeCntList = codeMgtService.getUseCodeCntList(CodeMgtVO);
+
+		modelMap.addAttribute("getDangerCodeCntList", getDangerCodeCntList);
+		modelMap.addAttribute("getUseCodeCntList", getUseCodeCntList);
+
+		return modelMap;
+
+	}
+		
+	*/
+	
+		
+			
+}

@@ -1,0 +1,79 @@
+package com.owth.service.bbs;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
+
+import com.owth.dao.bbs.ColumnDAO;
+import com.owth.vo.bbs.ColumnVO;
+
+@Service
+public class ColumnService {
+	
+	/**
+	 * 게시글 컬럼 DAO 클래스
+	 */
+	@Autowired
+	ColumnDAO columnDAO;
+	
+	/**
+	 * 게시글 목록
+	 * @return 게시글 목록
+	 */
+	public List<ColumnVO> getColumnList(ColumnVO columnVO)
+	{
+		System.out.println("ColumnService List Start =================================================");
+		
+		return columnDAO.getColumnList(columnVO);
+	}
+	
+	/**
+	 * 게시글 등록
+	 * @return 등록 결과
+	 */
+	public int getColumnInsert(ColumnVO columnVO) {
+		
+		System.out.println("ColumnService Insert Start =================================================");
+		System.out.println("ColumnVO" + columnVO);
+		
+		return columnDAO.getColumnInsert(columnVO);
+	}
+	/**
+	 * 게시글 조회수
+	 * @return 조회수 증가
+	 */
+	public int getColumnViewCnt(ColumnVO columnVO) {
+		
+		return columnDAO.getColumnViewCnt(columnVO);
+	}
+	
+	/**
+	 * 게시글 상세 조회
+	 * @return 등록 결과
+	 */
+	public ColumnVO getColumnDetail(ColumnVO columnVO) {
+		System.out.println("Detail Service Start =================================================");
+		return columnDAO.getColumnDetail(columnVO);
+	}
+	
+	/**
+	 * 게시글 수정
+	 * @return 수정 결과
+	 */
+	public int getColumnUpdate(ColumnVO columnVO)
+	{
+		return columnDAO.getColumnUpdate(columnVO);
+	}
+	
+	/**
+	 * 게시글 삭제
+	 * @return 삭제 결과
+	 */
+	public int getColumnDelete(ColumnVO columnVO)
+	{
+		return columnDAO.getColumnDelete(columnVO);
+	}
+
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="codeManagement">
+	
+	<!-- 위험도 등록 -->
+	<insert id="dangerInsert" parameterType="codeManagementVO">
+		INSERT INTO
+			dangerCode(
+				dangerName,
+				writer,
+				writeDate,
+				modifier,
+				modifiyDate,
+				useYN
+			)VALUES(
+				'#{dangerName}',
+				'#{writer}',
+				now(),
+				'#{modifier}',
+				'#{modifiyDate}',
+				'Y',
+			)					
+	</insert>
+	
+	<!-- 위험도 조회 -->
+	<select id="getDangerCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			dangerName
+		FROM
+			dangerCode
+		WHERE
+			dangerIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			dangerIDX DESC 
+		
+	</select>	
+	
+	<!-- 위험도 조회 -->
+	<select id="getUseCodeList" parameterType="codeManagementVO" resultType="codeManagementVO">
+		SELECT
+			useName
+		FROM
+			useCode
+		WHERE
+			useIDX		
+		AND
+			useYN = 'Y'
+		ORDER BY
+			useIDX DESC 
+		
+	</select>	
+	
+</mapper>

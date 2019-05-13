@@ -1,0 +1,47 @@
+package com.owth.service.ingredientRST;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.owth.dao.ingredientRST.IngredientRSTDAO;
+import com.owth.vo.ingredientRST.IngredientRSTVO;
+
+@Service
+public class IngredientRSTService {
+	
+	/**
+	 * 성분 DAO 클래스
+	 */
+	@Autowired
+	IngredientRSTDAO ingredientRSTDAO;
+	
+	/**
+	 * 성분을 등록한다.
+	 * @param 성분 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int ingredientInsert(IngredientRSTVO ingredientRSTVO)
+	{
+		return ingredientRSTDAO.ingredientInsert(ingredientRSTVO);
+	}
+	
+	/**
+	 * 성분을 조회한다.
+	 * @return 성분 목록
+	 */
+	public List<IngredientRSTVO> getIngredientList(IngredientRSTVO ingredientRSTVO) {
+		return ingredientRSTDAO.getIngredientList(ingredientRSTVO);
+	}
+	
+	/**
+	 * 성분을 검색한다.
+	 * @return 성분 목록
+	 */
+	public List<IngredientRSTVO> getIngredientSearchList(IngredientRSTVO ingredientRSTVO) {
+		return ingredientRSTDAO.getIngredientSearchList(ingredientRSTVO);
+	}
+	
+
+}

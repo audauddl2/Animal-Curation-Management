@@ -1,0 +1,54 @@
+@charset "utf-8";
+/*btnWrap*/
+.idTextWrap{float:left; width:100%; height:100px; line-height:100px; background-color:#F1F2F2; border-bottom:1px solid black; }
+.idTextArea{display:inline-block; width: 84%;}
+.idText{display:inline-block; float:left; font-size:40px; color:#808285;}
+
+.textColor{color:#5184FF;}
+
+/*analysisInfo*/
+.analysisInfo{float:left; width:100%; text-align:center; margin:45px 0 0 0;border-bottom:1px solid black; }
+.analysisArea{display:inline-block; width:84%; height:200px; }
+.iconAnalysis{float:left; width:130px; margin:0 65px 0 0;}
+.infoText{float:left; text-align:left; margin:10px 0 0 0;}
+.brandName{}
+.productName{}
+.categoryName{}
+
+/*ingredientInfo*/
+.ingredientInfo{float:left; width:100%; text-align:center; border-bottom:1px solid black; cursor:pointer;}
+.ingredientArea{display:inline-block; width:84%;padding: 45px 0 45px 0; }
+.ingredientName{display:inline-block; float:left;color:#5184FF; text-align:left; margin:0 20px 20px 0; font-family: NotoSansCJKkr-Medium;}
+.infoArea{display:inline-block; line-height:50px; width:100%; margin:20px 0 0 0;}
+.iconCare{float:left; margin:0 65px 0 0;}
+.careName{display:inline-block; float:left; }
+.careCnt{color:red; margin:0 0 0 25px;}
+.iconAllergy{float:left; margin:0 65px 0 0;}
+.allergyName{display:inline-block; float:left; font-size:25px;}
+
+.ingredientAllName{color:#5184FF; font-size:30px; text-align:left; margin:0 50px 20px 0; }
+.ingredientAllText{display:inline-block; float:left; font-size:25px;}
+
+/*bar*/
+.barWrap{float:left;width:100%;height:50px;overflow:hidden;border-radius:15px;}
+.barOne{float:left;width:60%;height:49px; background-color:#5184FF;}
+.barTwo{float:left;width:20%;height:49px; background-color:#FDBE23;}
+.barThree{float:left;width:10%;height:49px; background-color:#BE1E2D;}
+.barFour{float:left;width:10%;height:49px; background-color:#808285;}
+
+.goodImg{float:left; width:100px; }
+.goodText{float:left; display:inline-block; margin:25px 0 0 60px}
+
+.infoWrap{text-align:left;}
+.popUpTextFirst{font-size:55px; font-family: NotoSansCJKkr-Medium;}
+.popUpTextSecond{color:#939598;}
+.useType{border-bottom:3px solid black; margin:0 70px 0 70px; padding:40px 0 40px 0;}
+.useBox{border-bottom:1px solid black; margin:0 70px 0 70px; padding:40px 0 40px 0;}
+.dangerBox{border-bottom:1px solid black; margin:0 70px 0 70px; padding:40px 0 40px 0;}
+.allergyBox{border-bottom:1px solid black; margin:0 70px 0 70px; padding:40px 0 40px 0;}
+.useType p{text-align:left; display:inline-block; margin:0 0 0 0;}
+.useBox p{text-align:left; display:inline-block; margin:0 0 0 30px;}
+.dangerBox p{text-align:left; display:inline-block; margin:0 0 0 30px;}
+.allergyBox p{text-align:left; display:inline-block; margin:0 0 0 30px;}
+.infoWrap img{width: 90px;}
+.explain{margin: 40px 60px 40px 60px;}

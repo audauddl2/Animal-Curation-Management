@@ -1,0 +1,84 @@
+package com.owth.service.codeManagement;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.owth.dao.codeManagement.CodeManagementDAO;
+import com.owth.vo.codeManagement.CodeManagementVO;
+import com.owth.vo.ingredientRST.IngredientRSTVO;
+
+@Service
+public class CodeManagementService {
+	
+	/**
+	 * 성분 DAO 클래스
+	 */
+	@Autowired
+	CodeManagementDAO codeManagementDAO;
+	
+	/**
+	 * 위험도를 등록한다.
+	 * @param 위험도 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int dangerCodeInsert(CodeManagementVO codeManagementVO)
+	{
+		return codeManagementDAO.dangerCodeInsert(codeManagementVO);
+	}
+	
+	/**
+	 * 위험도를 수정한다.
+	 * @param 위험도 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int dangerCodeUpdate(CodeManagementVO codeManagementVO)
+	{
+		return codeManagementDAO.dangerCodeInsert(codeManagementVO);
+	}	
+	
+	
+	/**
+	 * 위험도를 조회한다.
+	 * @return 위험도 목록
+	 */
+	public List<CodeManagementVO> getDangerCodeList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getDangerCodeList(codeManagementVO);
+	}
+	
+	/**
+	 * 용도를 등록한다.
+	 * @param 용도 등록한 용어
+	 * @return 등록 결과
+	 */
+	public int useCodeInsert(CodeManagementVO codeManagementVO)
+	{
+		return codeManagementDAO.dangerCodeInsert(codeManagementVO);
+	}
+	
+	/**
+	 * 용도를 조회한다.
+	 * @return 용도 목록
+	 */
+	public List<CodeManagementVO> getUseCodeList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getUseCodeList(codeManagementVO);
+	}
+	
+	
+	/**
+	 * 위험도 종류 및 등록수를 조회한다.
+	 * @return 위험도 종류 및 등록수 목록
+	 */
+	public List<CodeManagementVO> getDangerCodeCntList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getDangerCodeCntList(codeManagementVO);
+	}
+	
+	/**
+	 * 용도 종류 및 등록수를 조회한다.
+	 * @return 위험도 종류 및 등록수 목록
+	 */
+	public List<CodeManagementVO> getUseCodeCntList(CodeManagementVO codeManagementVO) {
+		return codeManagementDAO.getUseCodeCntList(codeManagementVO);
+	}
+}

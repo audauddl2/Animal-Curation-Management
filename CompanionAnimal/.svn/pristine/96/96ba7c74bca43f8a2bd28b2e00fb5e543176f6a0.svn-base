@@ -1,0 +1,71 @@
+package com.owth.controller.codeManagement;
+
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kpu.jung.framework.exception.ServiceException;
+import com.owth.common.RtnMessageUtil;
+import com.owth.service.codeManagement.CodeManagementService;
+import com.owth.vo.codeManagement.CodeManagementVO;
+
+@Controller
+public class CodeManagementController {
+
+	/** The logger. */
+	protected Log logger = LogFactory.getLog(this.getClass());
+	
+	/** Object. */
+	private RtnMessageUtil rtnMessageUtil = new RtnMessageUtil();
+
+	@Autowired
+	CodeManagementService codeManagementService;
+	
+	@RequestMapping("/codeManagement/ingredientCodeManagement")
+	public Map<String, Object> getDangerCodeList(ModelMap modelMap, @ModelAttribute CodeManagementVO codeManagementVO, HttpServletRequest request, Writer out) throws ServiceException{
+			
+		List<CodeManagementVO> getDangerCodeList = codeManagementService.getDangerCodeList(codeManagementVO);
+		
+		modelMap.addAttribute("getDangerCodeList", getDangerCodeList);
+		
+		return modelMap;
+
+	}
+	
+	//ingredientRegister에서 위험도 리스트를 가져오기 위해 사용
+	@RequestMapping("/ingredientRST/ingredientRegister")
+	 public Map<String, Object> getDangerCodeList2(ModelMap modelMap, @ModelAttribute CodeManagementVO codeManagementVO, HttpServletRequest request, Writer out) throws ServiceException{
+		
+		System.out.println("getDangerCodeList Call Start ===============================================================");
+		
+		List<CodeManagementVO> getDangerCodeList = codeManagementService.getDangerCodeList(codeManagementVO);
+		
+		List<CodeManagementVO> getUseCodeList = codeManagementService.getUseCodeList(codeManagementVO);
+		
+		System.out.println("getDangerCodeList2 : " + getDangerCodeList.size());
+		System.out.println("getUseCodeList : " + getUseCodeList.size());
+		System.out.println("getDangerCodeList2 Call End ===============================================================");
+		
+		modelMap.addAttribute("getDangerCodeList", getDangerCodeList);
+		
+		modelMap.addAttribute("getUseCodeList", getUseCodeList);
+		
+		return modelMap;			
+	}
+	
+	
+	
+	
+			
+			
+}

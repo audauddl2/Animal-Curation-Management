@@ -1,0 +1,163 @@
+package com.owth.vo.comment;
+
+import com.owth.vo.common.PagingVO;
+
+public class CommentVO extends PagingVO {
+	
+	//리뷰
+	private int commentIDX;
+	private int reviewIDX;						//리뷰 Index
+	private String commentTitle;				//리뷰 제목
+	private String commentContent;				//리뷰 작정내용
+	private String writer;						//등록자
+	private String writeDate;					//등록일
+	private String modifier;					//수정자
+	private String modifyDate;					//수정일
+	private String useYN;						//사용여부
+	
+	//카운트
+	private int commentCnt;
+	
+	/**
+	 * @return the commentIDX
+	 */
+	public int getCommentIDX() {
+		return commentIDX;
+	}
+
+	/**
+	 * @param commentIDX the commentIDX to set
+	 */
+	public void setCommentIDX(int commentIDX) {
+		this.commentIDX = commentIDX;
+	}
+
+	/**
+	 * @return the reviewIDX
+	 */
+	public int getReviewIDX() {
+		return reviewIDX;
+	}
+	
+	/**
+	 * @param reviewIDX the reviewIDX to set
+	 */
+	public void setReviewIDX(int reviewIDX) {
+		this.reviewIDX = reviewIDX;
+	}
+	
+	/**
+	 * @return the commentTitle
+	 */
+	public String getCommentTitle() {
+		return commentTitle;
+	}
+
+	/**
+	 * @param commentTitle the commentTitle to set
+	 */
+	public void setCommentTitle(String commentTitle) {
+		this.commentTitle = commentTitle;
+	}
+	
+	/**
+	 * @return the commentContent
+	 */
+	public String getCommentContent() {
+		return commentContent;
+	}
+
+	/**
+	 * @param commentContent the commentContent to set
+	 */
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+
+	/**
+	 * @return the writer
+	 */
+	public String getWriter() {
+		return writer;
+	}
+	
+	/**
+	 * @param writer the writer to set
+	 */
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	
+	/**
+	 * @return the writeDate
+	 */
+	public String getWriteDate() {
+		return writeDate;
+	}
+	
+	/**
+	 * @param writeDate the writeDate to set
+	 */
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	
+	/**
+	 * @return the modifier
+	 */
+	public String getModifier() {
+		return modifier;
+	}
+	
+	/**
+	 * @param modifier the modifier to set
+	 */
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
+	
+	/**
+	 * @return the modifyDate
+	 */
+	public String getModifyDate() {
+		return modifyDate;
+	}
+	
+	/**
+	 * @param modifyDate the modifyDate to set
+	 */	
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	
+	/**
+	 * @return the useYN
+	 */
+	public String getUseYN() {
+		return useYN;
+	}
+	
+	/**
+	 * @param useYN the useYN to set
+	 */
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+	
+	/**
+	 * @return the commentCnt
+	 */
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+
+	/**
+	 * @param commentCnt the commentCnt to set
+	 */
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+
+	
+	
+}

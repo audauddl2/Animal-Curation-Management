@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*idTextWrap*/
+.idTextWrap{float:left; width:100%;line-height:100px; background-color:#F1F2F2; border-bottom:1px solid black; }
+.idTextArea{display:inline-block; width: 90%;}
+.idText{display:inline-block; float:left;}
+
+.selectBtnOne{float:left; width:100%; text-align:center; border:1px solid black;}
+.btnText{margin:0 0 0 50px; }
+.downBtn{float:right; margin:0 50px 0 0; }
+.menuDown{text-align:left;}
+.menuSub{background-color:#fff; border:1px solid black; text-align:left;}
+.menuSubT{background-color:#fff; border:1px solid black; text-align:left;}
+.textColor{color:#5184FF;}
+
+/*categoryInfo*/
+.categoryInfo{float:left; width:100%; text-align:center; padding:45px 0 45px 0;}
+.categoryArea{display:inline-block; width:90%; }
+.categoryText{text-align:left;}
+.categoryChoice{width:100%; height:80px; line-height:80px; border:1px solid black;}
+.choiceText{text-align:left;padding:0 0 0 50px;}
+
+/*brandInfo*/
+.brandInfo{float:left; width:100%; text-align:center; padding:45px 0 45px 0;}
+.brandArea{display:inline-block; width:90%; }
+.brandText{text-align:left;}
+.brandInput{width:100%;}
+.brandInputText{float:left; width:100%; height:80px; line-height:80px; border:1px solid black; padding:0 0 0 50px;}
+
+/*productInfo*/
+.productInfo{float:left; width:100%; text-align:center; padding:45px 0 45px 0;}
+.productArea{display:inline-block; width:90%; }
+.productText{text-align:left;}
+.productInput{width:100%;}
+.productInputText{float:left; width:100%; height:80px; line-height:80px; border:1px solid black; padding:0 0 0 50px;}
+
+/*ingredientAllInfo*/
+.ingredientAllInfo{float:left; width:100%; text-align:center; padding:45px 0 45px 0;}
+.ingredientAllArea{display:inline-block; width:90%; }
+.ingredientAllName{text-align:left;}
+.ingredientAllText{text-align:left; color:#808285}
+.ingredientAllInput{width:100%;  overflow:hidden; border:1px solid black;}
+.ingredientAllInputText{float:left; width:95%; height:80px; line-height:80px; padding:0 0 0 50px;}
+
+
+.iconDelete{float:left; margin:25px 0 0 0; z-index:1;}
+
+/*resultText*/
+.resultTextWrap{display:inline-block; width:70%; padding:50px 0 0 0;}
+.resultTextColor{color:#5184FF;}
+/*addBtn*/
+.addBtn{display:inline-block; width:90%; height:150px; background-color:#5184FF; margin:50px 0 0 0; line-height:150px;}
+.addText{display:inline-block; color:#fff; }

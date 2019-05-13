@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="ingredientRSTVO"  type="com.owth.vo.ingredientRST.IngredientRSTVO"/>
+		<typeAlias alias="codeManagementVO"  type="com.owth.vo.codeManagement.CodeManagementVO"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/ingredientRST.xml" />
+		<mapper url="file:///D:/Project/source/CompanionAnimal/WebContent/WEB-INF/config/sql/codeManagement.xml" />
+	</mappers>
+
+</configuration>

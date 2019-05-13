@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../views/resources/css/mobile/commonM.css" >
+	<link rel="stylesheet" type="text/css" href="../../views/resources/css/mobile/search_2.css"/>
+
+</head>
+
+<body>
+    <div id="wrap">
+		<!--popUp 영역-->
+		<div id="mask"></div>
+		<div id="popUpContainer"></div>
+		
+		<!-- header 영역-->
+        <div id="hdContainer">
+			<div class="header">
+				<div class="back_btn">
+					<img src="../../views/resources/img/btn_back.png">
+				</div>
+				<p class="headerText">원료별 검색</p>
+			</div>
+		</div>
+		
+        <div id="frameContainer">
+			
+            <div id="contents">
+				<!-- innerBox -->
+                <div class="innerBox">
+					<!-- showArea 영역-->
+					<div class="showArea"> 
+						<!-- 외부 div 1영역-->
+						<div class="outBox">
+							<!--내부 div -->
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_01.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_02.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_03.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_04.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_05.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_06.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_07.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_08.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_1.html'">
+								<img src="../../views/resources/img/main/main_2_09.png">
+							</button>
+						</div>	
+						
+						<!-- 외부 div 2영역-->
+						<div class="outBox">
+							<!--내부 div -->
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_10.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_11.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_12.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_13.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_14.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_2.html'">
+								<img src="../../views/resources/img/main/main_2_15.png">
+							</button>
+						</div>
+						
+						<!-- 외부 div 3영역-->
+						<div class="outBox">
+							<!--내부 div -->
+							<button class="box" onclick="location.href='./materialSearch_3.html'">
+								<img src="../../views/resources/img/main/main_2_16.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_3.html'">
+								<img src="../../views/resources/img/main/main_2_17.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_3.html'">
+								<img src="../../views/resources/img/main/main_2_18.png">
+							</button>
+							
+							<button class="box" onclick="location.href='./materialSearch_3.html'">
+								<img src="../../views/resources/img/main/main_2_19.png">
+							</button>
+						</div>
+						
+						
+					<!-- showArea end-->	
+					</div>
+					
+					
+				<!-- innerBox end-->	
+                </div>
+				
+			<!--contents end -->
+            </div>
+		
+		<!--frameContainer end -->
+        </div>
+		
+		<!-- 2018.09.18 수정 -->
+		
+		<!-- 네비게이션 -->
+		<div id="nvContainer">
+			<div class="box_nav">
+				<a href="./main.html"><img src="../../views/resources/img/nav/nav_01_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./favorite_1.html"><img src="../../views/resources/img/nav/nav_02_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./myPage_1.html"><img src="../../views/resources/img/nav/nav_03_Unchecked.png"></a>
+			</div>
+			<div class="box_nav">
+				<a href="./board_1.html"><img src="../../views/resources/img/nav/nav_04_Unchecked.png"></a>
+			</div>
+		</div>
+		
+	<!--wrap end -->
+	
+    </div>
+	
+	<!-- script -->
+	<script src="../../views/resources/js/jquery-1.4.4.min.js"></script>
+    <script src="../../views/resources/js/mobile/base.js"></script>
+    <script src="../../views/resources/js/mobile/common.js"></script>
+	<script src="../../views/resources/js/mobile/responsive.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/* Nav Position */
+.Nav{position:relative;	float:left;	width:249px;height:1000px;background-color:#414042;}
+
+
+/* Nav Background-Images*/	
+.Nav>.img1{background-image: url('../img/nav/nav_nomal_1.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img1.on{background-image: url('../img/nav/nav_clicked_1.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+.Nav>.img2{background-image: url('../img/nav/nav_nomal_2.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img2.on{background-image: url('../img/nav/nav_clicked_2.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+
+.Nav>.img3{background-image: url('../img/nav/nav_nomal_3.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img3.on{background-image: url('../img/nav/nav_clicked_3.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+
+.Nav>.img4{background-image: url('../img/nav/nav_nomal_4.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img4.on{background-image: url('../img/nav/nav_clicked_4.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+
+.Nav>.img5{background-image: url('../img/nav/nav_nomal_5.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img5.on{background-image: url('../img/nav/nav_clicked_5.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+
+.Nav>.img6{background-image: url('../img/nav/nav_nomal_6.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img6.on{background-image: url('../img/nav/nav_clicked_6.gif');background-repeat: repeat-y; width:250px; height:50px;}
+
+
+.Nav>.img7{background-image: url('../img/nav/nav_nomal_7.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img7.on{background-image: url('../img/nav/nav_clicked_7.gif');background-repeat: repeat-y; width:250px; height:50px;}
+	
+.Nav>.img8{background-image: url('../img/nav/nav_nomal_8.gif');background-repeat: repeat-y;width:250px; height:50px;}
+.Nav>.img8.on{background-image: url('../img/nav/nav_clicked_8.gif');background-repeat: repeat-y; width:250px; height:50px;}

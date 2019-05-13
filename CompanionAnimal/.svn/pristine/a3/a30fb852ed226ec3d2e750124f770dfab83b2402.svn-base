@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+	.header{
+		position: relative;
+		float: left;
+		width:100%;
+		height: 200px;
+		border-bottom:1px solid black;
+		background-color:#ffffff;
+		text-align:center;
+		line-height:200px;
+		font-family: 'NotoSansCJKkr-Medium';
+	}
+	.header p {
+		display:inline-block;
+		font-size: 65px;
+		color: #5184FF;	
+	}
+	.back_btn {
+		position: absolute;
+		width:200px;
+		height:200px;
+	}
+	.back_btn img{
+		width: 15%;
+	}
+	
+	.UserImg img{
+		width: 30%;
+		margin: 10% 0 10% 0;
+	}
+	.title{
+		width: 84%;
+		font-size: 55px;
+		font-family: 'NotoSansCJKkr-Medium';
+		color: #5184FF;
+		text-align: left;
+		display: inline-block;
+		margin: 0 0 5% 0;
+	}
+	.fatPet p {
+		width: 84%;
+		font-size: 45px;
+		color: #58595B;	
+		font-family: 'NotoSansCJKkr-Medium';
+		text-align: left;
+		margin: 5% 0 3% 0;
+		display: inline-block;
+	}
+	.PetInfo{
+		margin: 30px 0 30px 0;
+		border-bottom: 1px solid #444444;
+		width: 84%;
+		height: 100px;
+		display: inline-block;
+	}
+	.PetInfo img{
+		float:left;
+		width: 6%;
+		margin: 0 30px 0 0;
+	}
+	.PetInfoText{
+		border-bottom: none;
+		height: 90px;
+		font-size: 45px;
+		width: 90%;
+	}
+	
+	
+	.etcTextall{
+		margin: 30px;
+		border-bottom: 1px solid #444444;
+		width: 84%;
+		height: 100px;
+		display: inline-block;
+	}
+	.etcTextall img{
+		float:left;
+		width: 6%;
+		margin-right: 30px;
+	}
+	.etcText{
+		border-bottom: none;
+		height: 90px;
+		font-size: 45px;
+		width: 90%;
+	}
+	
+	
+	.PetType .addInfoBox{
+		width: 84%;
+		display: inline-block;
+		text-align: center;
+	}
+	.addInfoBox p{
+		width: 84%;
+		color: #58595B;	
+		font-size: 45px;
+		font-family: 'NotoSansCJKkr-Medium';
+		display: inline-block;
+		text-align: left;
+		margin: 50px 0 30px 0;
+	}
+	
+	
+	
+	.box{
+		display:inline-block;
+		width: 20.501%;
+		height:auto;
+		background-color: #FFF;		
+	}
+	.box img{
+		width:100%;
+	}
+	
+
+	.moreBtn hr{
+		width: 84%;
+		margin: 0 8% 0 8%;
+	}
+	.moreBtn{
+		margin: 70px 0 0 0;
+	}
+	.moreBtn img{
+		width: 150px;
+		margin: 20px 0 70px 0;
+	}
+	
+	/*  
+	button{
+		width: 86%;
+		height: 120px;
+	}
+	*/
+	button{
+		width: 84%;
+		height: 150px;
+		background-color: #5184FF;
+		font-size: 55px;
+		font-family: 'NotoSansCJKkr-Medium';
+		display: inline-block;
+		color: #ffffff;
+	}
+	.btn{
+		margin: 10% 0 5% 0;
+		height: 150px;
+	}
+	.body{
+		width:100%;
+		background-color:#ffffff;
+		text-align: center;
+	}

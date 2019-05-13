@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+
+	<!-- 게시글 목록 -->
+	<select id="getProductTotalCount" parameterType="ProductVO" resultType="int">
+  		SELECT
+  			count(*) as cnt
+  		FROM 
+  		 product
+  		WHERE
+  		 useYN = 'Y'
+	</select>
+
+
+	<!-- 게시글 목록 -->
+	<select id="getProductList" parameterType="ProductVO" resultType="ProductVO">
+  		SELECT
+  			ProductName
+  			, productImg
+  			, brandCode
+  			, ingredientsYN
+  		FROM Product
+  		WHERE
+  		 useYN = 'Y'
+	</select>
+	
+	<!-- 단어를 신규로 등록한다. -->
+	<insert id="getProductInsert" parameterType="ProductVO">
+		INSERT INTO
+			product(
+				productImg
+				, brandCode
+				, productName
+				, productPrice
+				, productVolume
+				, productUse
+				, productMaterial
+				, productFunction
+				, productKind
+				, productHard
+				, productFatty
+				, productMoist
+				, crudeProtein
+				, crudeFat
+				, crudeFiber
+				, crudeAsh
+				, calcium
+				, phosphorus
+				, omega3
+				, omega6
+				, ingredientsYN
+				, ingredientCnt 
+				, useYN
+				, writer
+				, writeDate
+			) VALUES (
+				'#{productImg}'
+				, #{brandCode}
+				, '#{productName}'
+				, #{productPrice}
+				, #{productVolume}
+				, '#{productUse}'
+				, '#{productMaterial}'
+				, '#{productFunction}'
+				, '#{productKind}'
+				, #{productHard}
+				, #{productFatty}
+				, #{productMoist}
+				, #{crudeProtein}
+				, #{crudeFat}
+				, #{crudeFiber}
+				, #{crudeAsh}
+				, #{calcium}
+				, #{phosphorus}
+				, #{omega3}
+				, #{omega6}
+				, '#{ingredientsYN}'
+				, 0
+				, 'Y'
+				, 'admin'
+				, now()
+		)
+	</insert>
+
+	<!-- 용어를 갱신한다. -->
+	<update id="getProductUpdate">
+		UPDATE 
+		    product
+		SET
+			productImg = '#{productImg}'
+			, brandCode = '#{brandCode}'
+			, productName = '#{productName}'
+			, productPrice = '#{productPrice}'
+			, productVolume = '#{productVolume}'
+			, productUse '#{productUse}'
+			, productMaterial = '#{productMaterial}'
+			, productFunction = '#{productFunction}'
+			, productKind = '#{productKind}'
+			, productHard = '#{productHard}'
+			, productFatty = '#{productFatty}'
+			, productMoist = '#{productMoist}'
+			, crudeProtein = '#{crudeProtein}'
+			, crudeFat = '#{crudeFat}'
+			, crudeFiber = '#{crudeFiber}'
+			, crudeAsh = '#{crudeAsh}'
+			, calcium = '#{calcium}'
+			, phosphorus = '#{phosphorus}'
+			, omega3 = '#{omega3}'
+			, omega6 = '#{omega6}'
+			, ingredientsYN = '#{ingredientsYN}'
+			, useYN = 'Y'
+			, modifier = 'admin'
+			, modifyDate = now()
+		WHERE
+			productIDX = ${productIDX}
+	</update>
+
+	<!-- 게시글 목록 -->
+	<select id="getFProductList" parameterType="ProductVO" resultType="ProductVO">
+  		SELECT
+  			ProductIDX
+  			, productImg
+  			, (Select CodeName as brandCode From owth.t_codemgt where codeIdx = brandCode ) as brandCode
+  			, ProductName
+  		FROM owth.t_Product
+  		WHERE
+  		 useYN = 'Y'
+         AND productUse in ( ${} )
+         AND productMaterial in ( ${} )
+         AND productFunction in ( ${} )
+         AND productKind in ( ${} ) 
+         
+	</select>
+
+
+
+	
+</mapper>

@@ -1,0 +1,66 @@
+package com.owth.vo.bbs;
+
+import java.util.Date;
+
+public class ColumnVO {
+	
+	int columnIDX;					//게시글 번호
+	String columnTitle;				//게시글 제목
+	String columnContent;			//게시글 내용
+//	String columnfileName;			//게시글 등록 파일 (실제 등록 파일명)
+//	String columnfileRealName;		//서버에 저장된 파일 이름 (중복된 파일명 일때 이름 변경 후 저장)
+	String writer;					//게시글 작성자 
+	String writeDate;					//게시글 등록일
+//	String modifier;				//게시글 수정자
+//	Date modifyDate;				//게시글 수정일
+	int columnviewCnt;				//게시글 조회수
+//	int columncontentCnt;			//게시글 댓글 등록수
+	String useYN;					//사용 여부
+	
+	
+	public int getColumnIDX() {
+		return columnIDX;
+	}
+	public void setColumnIDX(int columnIDX) {
+		this.columnIDX = columnIDX;
+	}
+	public String getColumnTitle() {
+		return columnTitle;
+	}
+	public void setColumnTitle(String columnTitle) {
+		this.columnTitle = columnTitle;
+	}
+	public String getColumnContent() {
+		return columnContent;
+	}
+	public void setColumnContent(String columnContent) {
+		this.columnContent = columnContent;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	public int getColumnviewCnt() {
+		return columnviewCnt;
+	}
+	public void setColumnviewCnt(int columnviewCnt) {
+		this.columnviewCnt = columnviewCnt;
+	}
+	public String getUseYN() {
+		return useYN;
+	}
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	
+	
+}

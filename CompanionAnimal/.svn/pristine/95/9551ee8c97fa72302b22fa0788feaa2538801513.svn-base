@@ -1,0 +1,97 @@
+
+/* ********************************************************** */
+/* 컨텐츠 영역 */
+@charset "UTF-8";
+
+/*폰트영역*/
+@font-face { font-family: NotoSansCJKkr-Medium; src: url("../../fonts/NotoSansCJKkr-Medium.otf"); }
+@font-face { font-family: NotoSansCJKkr-DemiLight; src: url("../../fonts/NotoSansCJKkr-DemiLight.otf"); }
+@font-face { font-family: NotoSansCJKkr-Regular; src: url("../../fonts/NotoSansCJKkr-Regular.otf"); }
+.nm{font-family: NotoSansCJKkr-Medium; }
+.ndl{font-family: NotoSansCJKkr-DemiLight;}
+.nr{font-family: NotoSansCJKkr-Regular;}
+/*기본세팅*/
+	
+* {margin:0;padding:0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+html, body, body div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin:0;  padding:0;  border:0;  font-size:100%;}
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {display:block;}
+body {font-family:'NotoSansCJKkr-Regular'; font-weight:normal; font-size:45px; background-color:transparent; -webkit-text-size-adjust:none;}
+img {border:0px;display:inline; outline-style:none;}
+html, body {width:100%; height:100%; overflow:-webkit-paged-x;}
+table {table-layout:fixed;}
+webkit-scrollbar {display:none;}
+::-webkit-scrollbar {display:none;}
+
+
+ul,ol,li {margin:0 auto;padding:0;list-style:none}
+textarea,select,button {font-size:55px;border:0;font-family:'NotoSansCJKkr-Medium';outline-style:none; cursor:pointer;}
+input{color:#666;font-size:40px;border:0;font-family:'NotoSansCJKkr-Medium';outline-style:none; cursor:pointer;}
+.invisible, caption, legend{position:absolute;left:-9999px;font-size:0;line-height:0%;visibility:hidden;}
+label.hidden {position:absolute;left:-9999px;font-size:0;line-height:0%;visibility:hidden;}
+
+/* common */
+.fl{float:left}
+.fr{float:right}
+.hidden {overflow:hidden;}
+.clear{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.relative{position:relative}
+.elps {overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.wb {word-break:break-all;}
+.border {border:1px solid red;}
+.inline {display:inline;}
+.inblock {display:inline-block;}
+.block {display:block !important;}
+.tac {text-align:center !important;}
+.tar {text-align:right !important;}
+.tal {text-align:left !important;}
+.vam {vertical-align:middle !important;}
+.cursor {cursor:pointer;}
+.white{	color:#FFFFFF; }
+.tl{text-align:left;}
+
+a{text-decoration:none; color:#666;}
+a:hover{text-decoreation:none; color:#5184FF;}
+
+
+
+#wrap{width:100%; height:100%;}
+#frameContainer {position: absolute;top: 0;width: 1170px;}
+#popUpContainer {position: absolute;top: 0;width: 1170px; z-index:4;}
+
+.showArea{position:absolute; width:100%; margin:200px 0 240px 0; text-align:center;}
+
+
+/*헤더영역*/
+#hdContainer {position: fixed; z-index:1; width: 1170px; height: 200px; background-color:#fff;}
+.header{width:100%;background-color:#FFF; text-align:center;line-height:200px; border-bottom:1px solid black;}
+.headerText {display:inline-block; font-family:NotoSansCJKkr-Medium; font-size: 65px; color: #5184FF;}
+.back_btn {position: absolute; width:200px; height:200px; top:10px;}
+.back_btn img{position:absolute; width: 15%; top: 62px;	left: 62px;}
+
+/*네비게이션*/
+#nvContainer {position: fixed; left:0; bottom:0;width: 100%;}
+.box_nav img{width:100%;}
+.box_nav {position: relative;float: left;width: 25%;}
+
+/*popUp*/
+#mask {position:absolute;z-index:2;background-color:#000;width:100%; height:115%; display:none;left:0;top:0;}
+.popUp{position:absolute;z-index:3;display:none; float:left; width:100%;text-align:center;}
+.popUpIn{display:inline-block; text-align:center; width:80%; margin:400px 0 0 0; padding:100px; background-color:#fff;}
+.close{display:inline-block; width:55%; background-color:#5184FF; bottom:0;}
+.closeText{display:inline-block; color:#fff;}
+.topText{}
+.middleText{}
+.imgWrap{float:left; width:100%;}
+.buttonWrap{float:left;width:100%;}
+
+/* ********************************************************** */
+
+
+

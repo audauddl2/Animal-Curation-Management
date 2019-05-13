@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dic">
+
+    <!-- DB에서 등록된 용어 갯수를 조회한다. -->
+	<select id="getDicTotalCount" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			t_dic d, t_major m
+		WHERE d.major_gubun = m.major_gubun
+		<choose>
+			<when test="s_Major_Gubun == '' or s_Major_Gubun == null or s_Major_Gubun == 100">
+				AND d.major_gubun in ( 0, 1, 2, 3, 4 )
+			</when>
+			<otherwise>
+				AND d.major_gubun in (0, ${s_Major_Gubun})
+			</otherwise>
+		</choose>
+		<if test="s_K_Term != '' and s_K_Term != null">
+			AND ( d.k_term like '%${s_K_Term}%' 
+				OR d.e_term like '%${s_K_Term}%'
+				OR d.a_term like '%${s_K_Term}%' )
+		</if>
+	</select>
+
+	<!-- 검색 조건에 따라 용어를 조회한다. -->
+	<select id="getDicList" parameterType="dicVo" resultType="dicVo">
+		SELECT
+			d.idx
+			, d.k_term
+			, d.e_term
+			, d.a_term
+			, d.k_explain
+			, d.major_gubun
+			, m.major_name
+			, d.bigo
+			, d.cnt
+		FROM
+			t_dic d, t_major m
+		WHERE
+			d.major_gubun = m.major_gubun
+		<choose>
+			<when test="s_Major_Gubun == '' or s_Major_Gubun == null or s_Major_Gubun == 100">
+				AND d.major_gubun in ( 0, 1, 2, 3, 4 ) 
+			</when>
+			<otherwise>
+				AND d.major_gubun in ( 0, ${s_Major_Gubun} )
+			</otherwise>
+		</choose>
+		<if test="k_Term != '' ">
+			AND ( d.k_term like '%${s_K_Term}%'
+					OR d.e_term like '%${s_K_Term}%'
+					OR d.a_term like '%${s_K_Term}%'
+			)
+		</if>
+		<choose>
+			<when test="pageNo == 1">
+				limit 0, 10
+			</when>
+			<otherwise>
+				limit ${startPageNo}, ${countPerPage}
+			</otherwise>
+		</choose>
+	</select>
+
+    <!-- DB에서 등록된 용어 갯수를 조회한다. -->
+	<select id="getMDicTotalCount" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			t_dic d, t_major m
+		WHERE d.major_gubun = m.major_gubun
+		<choose>
+			<when test="s_Major_Gubun == '' or s_Major_Gubun == null or s_Major_Gubun == 100">
+				AND d.major_gubun in ( 0, 1, 2, 3, 4 )
+			</when>
+			<otherwise>
+				AND d.major_gubun in (0, ${s_Major_Gubun})
+			</otherwise>
+		</choose>
+		<if test="s_K_Term != '' and s_K_Term != null">
+			AND ( d.k_term = '${s_K_Term}' 
+				OR d.e_term = '${s_K_Term}'
+				OR d.a_term = '${s_K_Term}' )
+		</if>
+	</select>
+
+	<!-- 검색 조건에 따라 용어를 조회한다. -->
+	<select id="getMDicList" parameterType="dicVo" resultType="dicVo">
+		SELECT
+			d.idx
+			, d.k_term
+			, d.e_term
+			, d.a_term
+			, d.k_explain
+			, d.major_gubun
+			, m.major_name
+			, d.bigo
+			, d.cnt
+		FROM
+			t_dic d, t_major m
+		WHERE
+			d.major_gubun = m.major_gubun
+		<choose>
+			<when test="s_Major_Gubun == '' or s_Major_Gubun == null or s_Major_Gubun == 100">
+				AND d.major_gubun in ( 0, 1, 2, 3, 4 ) 
+			</when>
+			<otherwise>
+				AND d.major_gubun in ( 0, ${s_Major_Gubun} )
+			</otherwise>
+		</choose>
+		<if test="k_Term != '' ">
+			AND ( d.k_term = '${s_K_Term}'
+					OR d.e_term = '${s_K_Term}'
+					OR d.a_term = '${s_K_Term}'
+			)
+		</if>
+		<choose>
+			<when test="pageNo == 1">
+				limit 0, 10
+			</when>
+			<otherwise>
+				limit ${startPageNo}, ${countPerPage}
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 단일 용어를 조회한다. -->
+	<select id="getDicDetail" resultType="dicVo" parameterType="dicVo">
+		SELECT 
+		       d.idx       
+		       , d.k_term       
+		       , d.e_term       
+		       , d.a_term       
+		       , d.k_explain       
+		       , d.k_index       
+		       , d.e_index       
+		       , d.a_index       
+		       , d.major_gubun
+		       , m.major_name as major_gubun_name
+		       , bigo       
+		       , cnt              
+		FROM t_dic d, t_major m
+		WHERE 
+			d.major_gubun = m.major_gubun
+			AND d.idx = ${idx}	
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="getDicReadCnt">
+	    UPDATE 
+	    	t_dic
+	    SET
+			cnt = cnt + 1
+		WHERE
+			idx = #{idx}
+	</update>
+
+	<!-- 단어를 신규로 등록한다. -->
+	<insert id="getDicInsert" parameterType="dicVo">
+		INSERT INTO
+			t_dic(
+				k_term,
+				e_term,
+				a_term,
+				k_explain,
+				k_index,
+				e_index,
+				a_index,
+				major_gubun,
+				bigo, 
+				apply_yn,
+				write_date
+			) VALUES (
+				'#{k_Term}',
+				'#{e_Term}',
+				'#{a_Term}',
+				'#{k_Explain}',
+				'#{k_Index}',
+				'#{e_Index}',
+				'#{a_Index}',
+				'#{major_Gubun}',
+				'#{bigo}',
+				'N',
+				now()
+		)
+	</insert>
+
+	<!-- 용어를 갱신한다. -->
+	<update id="getDicUpdate">
+	    UPDATE 
+	    	t_dic
+	    SET
+	    	k_term = '${k_Term}',
+			e_term = '${e_Term}',
+			a_term = '${a_Term}',
+			k_explain = '${k_Explain}',
+			k_index = '${k_Index}',
+			e_index = '${e_Index}',
+			a_index = '${a_Index}',
+			major_gubun = '${major_Gubun}',
+			bigo = '${bigo}',
+			apply_yn = '${apply_yn}',
+			apply_date = now()
+		WHERE
+			idx = ${idx}
+	</update>
+
+	<!-- 전체 용어를 조회한다. -->
+	<select id="selectAll" resultType="dicVo">
+		SELECT
+				no AS no,
+				k_term AS kTerm,
+				e_term AS eTerm,
+				a_term AS aTerm,
+				k_explain AS kExplain,
+				a_explain AS aExplain,
+				key_word AS keyWord,
+				k_index AS kIndex,
+				e_index AS eIndex,
+				a_index AS aIndex,
+				gubun AS gubun,
+				bigo AS bigo
+		FROM
+			dic
+	</select>
+	
+	<!-- 용어를 삭제한다. -->
+	<delete id="delete" parameterType="dicVo">
+	    DELETE FROM
+	    	dic
+	    WHERE
+	    	no = #{no}
+	</delete>
+	
+	<!-- 검색 조건에 맞는 용어의 수를 조회한다. -->
+	<select id="searchCnt" resultType="Integer" parameterType="dicVo">
+	     SELECT
+				count(*)
+		FROM
+			dic
+			<if test="keyWord != ''">
+			    WHERE 
+			    	k_term LIKE '%${kTerm}%'
+					OR e_term LIKE '%${eTerm}%'
+					OR a_term LIKE '%${aTerm}%'
+					OR key_word LIKE '%${keyWord}%'</if>
+			<if test="kIndex != null">WHERE k_index LIKE '%${kIndex}%'</if>
+			<if test="eIndex != null">WHERE e_index LIKE '%${eIndex}%'</if>
+			<if test="aIndex != null">WHERE a_index LIKE '%${aIndex}%'</if>
+	</select>
+
+
+	<!-- 통계에서 사용  -->
+    <!-- DB에서 등록된 용어 갯수를 조회한다. -->
+	<select id="getStatsDicTotalCount" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			t_dic d, t_major m
+		WHERE d.major_gubun = m.major_gubun
+		ORDER BY d.cnt DESC
+		limit 0, 10
+	</select>
+
+	<!-- 검색 조건에 따라 용어를 조회한다. -->
+	<select id="getStatsDicList" parameterType="dicVo" resultType="dicVo">
+		SELECT
+			d.idx
+			, d.k_term
+			, d.e_term
+			, d.a_term
+			, d.k_explain
+			, d.major_gubun
+			, m.major_name
+			, d.bigo
+			, d.cnt
+		FROM
+			t_dic d, t_major m
+		WHERE
+			d.major_gubun = m.major_gubun
+		ORDER by d.cnt DESC
+		limit 0, 10
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/*btnWrap*/
+.btnWrap{position:relative; float:left; width:100%; height:150px; line-height:150px; background-color:#F1F2F2; border-bottom:1px solid black; font-size:55px; font-family: NotoSansCJKkr-Medium;}
+.columnBtn{float:left; width:49.9%; text-align:center;}
+.columnText{display:inline-block;}
+
+.borderBar{float:left; width:1px; height:55px; background-color:black; margin: 62.5px 0 0 0;}
+
+.reviewBtn{float:left; width:49.9%; text-align:center;}
+.reviewText{display:inline-block; color:#5184FF;}
+
+/*petInfo*/
+.petInfo{float:left; width:100%; text-align:center; margin:45px 0 0 0;}
+.petInfoArea{display:inline-block; width:90%; border-bottom:1px solid black; }
+.iconUser{float:left; margin:20px 20px 0 0;}
+.infoText{float:left; text-align:left; margin:10px 0 0 0;}
+.iconBmrk{float:right; margin: 45px 0 0 0;}
+.petName{}
+.petType{}
+.reviewCnt{}
+
+/*productInfo*/
+.productInfo{float:left; width:100%; text-align:center;}
+.productInfoArea{display:inline-block; width:90%; margin:15px 0 0 0; }
+.iconProduct{float:left; width:100px; height:160px; margin:20px 20px 0 0; border:1px solid black;}
+.productInfoText{float:left; text-align:left; margin:10px 0 0 0;}
+.productName{}
+.productType{}
+.reviewGradeImg{float:left;margin:0 5px 0 0}
+.reviewGrade{float:left;}
+
+/*reviewInfo*/
+.reviewInfo{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewInfoArea{display:inline-block; width:90%; margin:25px 0 0 0; }
+.reviewGoodImg{float:left; width:100px; }
+.reviewGoodText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewBedImg{float:left; width:100px;}
+.reviewBedText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewTipImg{float:left; width:100px;}
+.reviewTipText{float:left; display:inline-block; margin:25px 0 0 25px}
+
+/*reviewImgWrap*/
+.reviewImgWrap{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewImgArea{display:inline-block; width:90%; margin:25px 0 0 0; }
+.reviewImgFt{float:left; width:200px; height: 200px; border:1px solid black; margin:0 50px 0 50px;}
+.reviewImg{float:left; width:200px; height: 200px; border:1px solid black; margin: 0 50px 0 0;}

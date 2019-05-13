@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.Content{
+	position:relative;
+	float:left;
+}
+.InnerContent{
+	width:1065px;
+	margin:15px 15px 0 15px;
+}
+
+.InnerTable1{
+	width:1065px;
+	height:170px;
+	margin:0 0 15px 0;
+	background-color:#E6E7E8;
+}
+.InnerTable2 {
+    width:1065px;
+    height:800px;
+    background-color:#E6E7E8;
+}

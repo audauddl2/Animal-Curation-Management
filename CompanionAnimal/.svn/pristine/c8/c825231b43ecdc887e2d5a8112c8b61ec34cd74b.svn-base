@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+
+/*productInfo*/
+.productInfo{float:left; width:100%; text-align:center;border-bottom:1px solid black; background-color:#fff;}
+.productInfoArea{display:inline-block; width:84%; margin:23px 0 23px 0; background-color:#fff;}
+.iconProduct{float:left; width:160px; height:160px; margin:20px 40px 0 0; border:1px solid black;}
+.productInfoText{float:left; text-align:left; margin:10px 0 0 0;}
+.productName{font-size:40px; color:#939598;}
+.productType{font-size:50px; margin:-12px 0 10px 0;}
+.reviewGradeImg{float:left;margin:0 5px 0 0; width:40px;}
+.reviewGrade{float:left; font-size:40px; margin:-12px 0 0 15px;}
+.iconGrade{float:right; margin: 27px 0 0 0; width:145px;}
+
+/*reviewInfo*/
+.reviewInfo{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewInfoArea{display:inline-block; width:84%; margin:25px 0 0 0; }
+.reviewGoodImg{float:left; width:100px; }
+.reviewGoodText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewBedImg{float:left; width:100px;}
+.reviewBedText{float:left; display:inline-block; margin:25px 0 0 25px}
+.reviewTipImg{float:left; width:100px;}
+.reviewTipText{float:left; display:inline-block; margin:25px 0 0 25px}
+.iconWrite{float:right; width:75px; margin: 45px 0 0 0;}
+
+/*reviewImgWrap*/
+.reviewImgWrap{float:left; width:100%; margin: 25px 0 0 0;}
+.reviewImgArea{display:inline-block; width:84%; padding:25px 0 25px 0; border-bottom:1px solid black;}
+.reviewImgFt{float:left; width:200px; height: 200px; border:1px solid black; margin:0 35px 0 35px;}
+.reviewImg{float:left; width:200px; height: 200px; border:1px solid black; margin: 0 35px 0 0;}
