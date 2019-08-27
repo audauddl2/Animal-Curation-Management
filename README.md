@@ -10,7 +10,9 @@ __DataBase :__ MySQL 5.7.22
 __IDE :__ eclipse -> Dynamic Web Project -> Spring 설정파일 구성( ServletContext, DispatcherServlet )
 
 ## App 페이지 설명(일부 내용)
+
 * __App Main__
+
 ![Companion_App](https://github.com/doorisopen/Animal-Curation-Management/blob/master/img/Companion_App.JPG)
 
 ## Web 페이지 설명(일부 내용)
